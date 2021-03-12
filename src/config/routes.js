@@ -28,7 +28,7 @@ const MyRoutes = () => (
             <Route path='/add-menu-items' component={AddMenuItems}></Route>
             <Route path='/order-requests' component={OrderRequests}></Route>
             <Route path='/my-orders' component={MyOrders}></Route>
-            <Route path='/my-foods' component={MyFoods}></Route>
+            <Route path='/my-items' component={MyFoods}></Route>
         </div>
     </Router>
 )

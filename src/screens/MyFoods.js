@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 // import firebase from '../config/firebase';
 import { connect } from 'react-redux';
 import { my_foods } from '../store/action';
+import firebase from '../config/firebase'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css'
@@ -30,6 +31,20 @@ class MyFoods extends Component {
         }
     }
 
+    deleteItem = (i) => {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // console.log("user uid => ", user.uid)
+                firebase.firestore().collection('users').doc(user.uid).collection("menuItems").doc(i).delete();
+            }
+        });
+        this.setState({
+        })
+
+        console.log(i , "has been deleted")
+
+    }
+
     _renderMyFoodsList() {
         const { myFoods } = this.state;
         if (myFoods) {
@@ -46,6 +61,7 @@ class MyFoods extends Component {
                                 <p className="mb-1"><small>{myFoods[val].itemIngredients}</small></p>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-right">
+                                <button onClick={() => this.deleteItem(myFoods[val].id)} className="optionButtons btn btn-warning py-1 px-2 mx-1">Delete</button>
                                 <span className="mx-3"><b>RS.{myFoods[val].itemPrice}</b></span>
                             </div>
                         </div>
@@ -88,7 +104,7 @@ class MyFoods extends Component {
                                 <div className="container">
                                     < div className="row">
                                         <div className="col-12 bg-white p-4">
-                                            <h4 className="text-center">My Food List</h4>
+                                            <h4 className="text-center">My Item List</h4>
                                             {this._renderMyFoodsList()}
                                         </div>
                                     </div>

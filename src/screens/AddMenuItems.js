@@ -86,7 +86,7 @@ export default class AddMenuItems extends Component {
                     text: addItemReturn,
                     type: 'success',
                 }).then(() => {
-                    this.props.history.push('/my-foods')
+                    this.props.history.push('/my-items')
                 })
             } catch (error) {
                 // console.log("Error in add menu items => ", error)

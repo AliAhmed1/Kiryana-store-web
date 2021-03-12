@@ -178,7 +178,7 @@ class RestaurantDetails extends Component {
                     <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={menuItemsList[val].id}>
                         <div className="row">
                             <div className="col-lg-2 col-md-3 col-8 offset-2 offset-lg-0 offset-md-0 px-0 mb-3 text-center">
-                                <img style={{ width: "70px", height: "70px" }} alt="Natural Healthy Food" src={menuItemsList[val].itemImageUrl} />
+                                <img style={{ width: "70px", height: "70px" }} alt="item image" src={menuItemsList[val].itemImageUrl} />
                             </div>
                             <div className="col-lg-7 col-md-6 col-sm-12 px-0">
                                 <h6 className="">{menuItemsList[val].itemTitle}</h6>
@@ -246,31 +246,32 @@ class RestaurantDetails extends Component {
                                     <div className="category-heading py-0 mb-1">
                                         <h6 className="m-0"><FontAwesomeIcon icon="utensils" className="mr-2" />Categories</h6>
                                     </div>
+                                    <br/>
                                     <div>
                                         <ul className="category-list">
                                             <li>
-                                                <p>Kebabs</p>
+                                                <p>Bread</p>
                                             </li>
                                             <li>
                                                 <p>Chicken</p>
                                             </li>
                                             <li>
-                                                <p>Burgers</p>
+                                                <p>Buns</p>
                                             </li>
                                             <li>
-                                                <p>Biryani</p>
+                                                <p>Biscuits</p>
                                             </li>
                                             <li>
                                                 <p>Sauces</p>
                                             </li>
                                             <li>
-                                                <p>Vegatable Dishes</p>
+                                                <p>Vegatables</p>
                                             </li>
                                             <li>
-                                                <p>Garlic Bread</p>
+                                                <p>Eggs</p>
                                             </li>
                                             <li>
-                                                <p>Specials</p>
+                                                <p>Spices</p>
                                             </li>
                                         </ul>
                                     </div>
@@ -286,20 +287,20 @@ class RestaurantDetails extends Component {
                                             <p className="res-details-tab-text"><FontAwesomeIcon icon="comment-alt" className="mr-3" />Reviews</p>
                                         </div>
                                         <div className={tab3} onClick={() => this.handleTabs("tab3")}>
-                                            <p className="res-details-tab-text"><FontAwesomeIcon icon="info-circle" className="mr-3" />Restaurant Info</p>
+                                            <p className="res-details-tab-text"><FontAwesomeIcon icon="info-circle" className="mr-3" />Store Info</p>
                                         </div>
                                     </div>
                                     {tab1Content &&
                                         < div className="row menu-section">
                                             <div className="col-12 bg-white p-4">
                                                 <div className="input-group input-group-sm mb-4 mt-2">
-                                                    <input type="text" className="form-control search-menu-input" htmlFor="search-menu" placeholder="Search food item" />
+                                                    <input type="text" className="form-control search-menu-input" htmlFor="search-menu" placeholder="Search item" />
                                                     <div className="input-group-append">
                                                         <span className="input-group-text search-menu-text" id="search-menu"><FontAwesomeIcon icon="search" /></span>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <h6 className="mb-4 text-warning">Best food items:</h6>
+                                                    <h6 className="mb-4 text-warning">Best items:</h6>
                                                     {this._renderMenuItemsList()}
                                                 </div>
                                             </div>
@@ -323,9 +324,9 @@ class RestaurantDetails extends Component {
                                     {tab3Content && <div className="row info-section">
                                         <div className="col-12 bg-white p-4">
                                             <h5>Overview {resDetails.userName}</h5>
-                                            <p>Base prepared fresh daily. Extra toppings are available in choose extra
-                                                Choose you sauce: Go for BBQ sauce or piri piri sauce on your pizza base for no extra cost.
-                                                Choose your cut: Triangular, square, fingers or Un cut on any size pizza</p>
+                                            <p>Base prepared fresh daily. Extra items are available in choose extra
+                                                Choose you sauce: Go for on your Bread base for no extra cost.
+                                                Choose fingers or Un cut on any size Bread</p>
                                         </div>
                                     </div>
                                     }

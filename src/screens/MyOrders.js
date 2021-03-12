@@ -89,6 +89,7 @@ class MyOrders extends Component {
                                     // console.log(myOrder[val].itemsList[val2])
                                     // console.log(val2)
                                     return (
+                                        // myOrder[val].itemList != null    ?
                                         <div className="row mb-3" key={val2}>
                                             <div className="col-lg-2 col-md-3 col-8 offset-2 offset-lg-0 offset-md-0 px-0 mb-3 text-center">
                                                 <img style={{ width: "70px", height: "70px" }} alt="Natural Healthy Food" src={myOrder[val].itemsList[val2].itemImageUrl} />
@@ -101,6 +102,7 @@ class MyOrders extends Component {
                                                 <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{myOrder[val].itemsList[val2].itemPrice}</b></span>
                                             </div>
                                         </div>
+                                        // : <div style={{marginTop : 10}}></div>
                                     )
                                 })
                             }

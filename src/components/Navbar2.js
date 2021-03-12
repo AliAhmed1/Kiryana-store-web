@@ -27,6 +27,7 @@ class Navbar2 extends Component {
                 return {
                     updated_user: props.user,
                     homeIconLink: '/order-requests',
+                    // homeIconLink: '/',
                 }
             } else {
                 return {
@@ -75,7 +76,7 @@ class Navbar2 extends Component {
                         <span className="nav-link active text-uppercase mr-2"><Link to="/add-menu-items">Add Items</Link></span>
                     </li>
                     <li className="nav-item">
-                        <span className="nav-link active text-uppercase mr-2"><Link to="/my-foods">My items</Link></span>
+                        <span className="nav-link active text-uppercase mr-2"><Link to="/my-items">My items</Link></span>
                     </li>
                     <li className="nav-item">
                         <span className="nav-link active text-uppercase mr-2"><Link to="/order-requests">Order Requests</Link></span>
@@ -119,7 +120,7 @@ class Navbar2 extends Component {
                     <Link className="navbar-brand" to={homeIconLink}>
                         {/* <img alt="Kalyana store Logo" src={require("../assets/images/logo.png")} /> */}
                         {/* <img alt="Kiryana store Logo" src={require("../assets/images/Pngtree.png")} height= "23" width = "190" /> */}
-                        <h4>Your Logo</h4>
+                        <h4>KIRYANA STORE</h4>
                     </Link>
                 </Navbar.Brand>
 

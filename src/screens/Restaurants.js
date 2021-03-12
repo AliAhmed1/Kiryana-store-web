@@ -239,7 +239,7 @@ class Restaurants extends Component {
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text" id="inputGroup-sizing-sm"><FontAwesomeIcon icon="search" /></span>
                                             </div>
-                                            <input type="text" value={defaultSearchValue} onChange={(e) => this.handleSearchBar(e.target.value)} className="form-control" placeholder="RESTAURANT NAME" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
+                                            <input type="text" value={defaultSearchValue} onChange={(e) => this.handleSearchBar(e.target.value)} className="form-control" placeholder="STORE NAME" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
                                         </div>
                                     </div>
                                 </div>
