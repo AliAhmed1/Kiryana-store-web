@@ -53,13 +53,13 @@ class Navbar2 extends Component {
         return (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <span className="nav-link active text-uppercase mr-2"><Link to="/restaurants">stores</Link></span>
+                    <span className="nav-link active text-uppercase mr-2"><Link to="/stores">Stores</Link></span>
                 </li>
                 <li className="nav-item">
                     <span className="nav-link text-uppercase mr-2"><Link to="/login">Login / Register</Link></span>
                 </li>
                 <li className="nav-item">
-                    <Link to="/register-restaurant">
+                    <Link to="/register-store">
                         <button type="button" className="btn btn-warning btn-sm text-uppercase mr-2 mr-1 px-3">Register store</button>
                     </Link>
                 </li>
@@ -93,7 +93,7 @@ class Navbar2 extends Component {
             return (
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <span className="nav-link active text-uppercase mr-2"><Link to="/restaurants">Items</Link></span>
+                        <span className="nav-link active text-uppercase mr-2"><Link to="/stores">Items</Link></span>
                     </li>
                     <li className="nav-item">
                         <span className="nav-link active text-uppercase mr-2"><Link to="/my-orders">My Orders</Link></span>

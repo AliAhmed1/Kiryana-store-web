@@ -4,6 +4,9 @@ import Navbar2 from '../components/Navbar2';
 import Footer from '../components/Footer';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css'
+import { connect } from 'react-redux';
+import { store_list } from '../store/action';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -51,15 +54,83 @@ class Home extends Component {
     this.handleSearchBar = this.handleSearchBar.bind(this);
   }
 
+  async componentDidMount() {
+    this.props.store_list();
+  }
+
   handleSearchBar() {
     const { homeSearchBarText } = this.state
     if (homeSearchBarText) {
-      this.props.history.push('/restaurants', this.state.homeSearchBarText)
+      this.props.history.push('/stores', this.state.homeSearchBarText)
     }
   }
 
+  handleViewMenu(resDetails) {
+    this.props.history.push('/store-details', resDetails)
+  }
+
   handleOrderNowBtn() {
-    this.props.history.push('/restaurants')
+    this.props.history.push('/stores')
+  }
+
+  _renderStoreList() {
+    const { storeList } = this.props;
+    if (storeList) {
+      return Object.keys(storeList).slice(0, 5).map((val) => {
+        return (
+          <div className="col-lg-6 col-md-6 col-sm-12 mb-4" key={storeList[val].id}>
+            <div className="container res-shadow res-border">
+              <div className="row p-3">
+                <div className="col-lg-4 col-md-4 col-sm-12 text-center border p-2">
+                  <img style={{ width: "100%", height: "100%" }} alt="store image" src={storeList[val].userProfileImageUrl} />
+                </div>
+                <div style={{ position: "relative" }} className="col-lg-8 col-md-8 col-sm-12 py-2">
+                  <h5 className="mb-1">{storeList[val].userName}</h5>
+                  <p className="mb-2"><small>{storeList[val].typeOfFood.join(', ')}</small></p>
+                  <p>
+                    <small className="">
+                      <FontAwesomeIcon icon="star" className="rating mr-1" />
+                      <FontAwesomeIcon icon="star" className="rating mr-1" />
+                      <FontAwesomeIcon icon="star" className="rating mr-1" />
+                      <FontAwesomeIcon icon="star" className="rating mr-1" />
+                      <FontAwesomeIcon icon="star" className="rating mr-1" />
+                    </small>
+                    <small>(1) Review</small>
+                  </p>
+                  <span style={{ position: "absolute", top: 5, right: 5 }}><FontAwesomeIcon icon="heart" className="text-success mr-1" /></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          // <div className="container bg-white p-3 px-0 mb-4" key={storeList[val].id}>
+          //     <div className="row">
+          //         <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-center">
+          //             <img style={{ width: "70%" }} alt="store image" src={storeList[val].userProfileImageUrl} />
+          //         </div>
+          //         <div className="col-lg-6 col-md-6 col-sm-12 px-0">
+          //             <p>
+          //                 <small className="">
+          //                     <FontAwesomeIcon icon="star" className="rating mr-1" />
+          //                     <FontAwesomeIcon icon="star" className="rating mr-1" />
+          //                     <FontAwesomeIcon icon="star" className="rating mr-1" />
+          //                     <FontAwesomeIcon icon="star" className="rating mr-1" />
+          //                     <FontAwesomeIcon icon="star" className="rating mr-1" />
+          //                 </small>
+          //                 <small>(1) Review</small>
+          //             </p>
+          //             <h5 className="">{storeList[val].userName}</h5>
+          //             <p className=""><small>Type of Items: <span>{storeList[val].typeOfFood.join(', ')}</span></small></p>
+          //         </div>
+          //         <div className="col-lg-3 col-md-3 col-sm-12 py-4 px-0">
+          //             <span style={{ display: 'inline-block', textAlign: 'center', borderRadius: '3px', border: '1px solid #dddddd', padding: '6px 7px 0px 7px', marginRight: '16px' }} ><FontAwesomeIcon icon="heart" className="text-success" /></span>
+          //             <button type="button" onClick={() => this.handleViewMenu(storeList[val])} className="btn btn-warning btn-sm text-uppercase" style={{ marginBottom: '8px' }}>View Menu</button>
+          //         </div>
+          //     </div>
+          // </div>
+        )
+      })
+    }
   }
 
   render() {
@@ -76,8 +147,8 @@ class Home extends Component {
               <div className="container">
                 <div className="row justify-content-center">
                   <div className="col-lg-6 col-md-6 col-sm-12 mb-3">
-                  <span className="input-group-text py-0" id="inputGroup-sizing-sm"><FontAwesomeIcon icon="search" />
-                    <input type="text" className="form-control text-uppercase" id="searchText" placeholder="Store Name" onChange={(e) => { this.setState({ homeSearchBarText: e.target.value }) }} />
+                    <span className="input-group-text py-0" id="inputGroup-sizing-sm"><FontAwesomeIcon icon="search" />
+                      <input type="text" className="form-control text-uppercase" id="searchText" placeholder="Store Name" onChange={(e) => { this.setState({ homeSearchBarText: e.target.value }) }} />
                     </span>
                   </div>
                   <div className="col-lg-2 col-md-2 col-sm-12">
@@ -155,10 +226,17 @@ class Home extends Component {
             <h2 className="h2 text-uppercase text-center">Featured Stores</h2>
             <p className="text-center">Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
           </div>
+
+
           <div className="container">
             <div className="row">
-              <div className="col-lg-6 col-md-6 col-sm-12 mb-4">
-                <div className="container res-shadow res-border">
+
+
+
+
+
+              {this._renderStoreList()}
+              {/* <div className="container res-shadow res-border">
                   <div className="row p-3">
                     <div className="col-lg-4 col-md-4 col-sm-12 text-center border p-2">
                       <img style={{ width: "70%" }} alt="Natural Healthy Food" src={require("../assets/images/listing-logo03.png")} />
@@ -179,128 +257,10 @@ class Home extends Component {
                       <span style={{ position: "absolute", top: 5, right: 5 }}><FontAwesomeIcon icon="heart" className="text-success mr-1" /></span>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-6 col-sm-12 mb-4">
-                <div className="container res-shadow res-border">
-                  <div className="row p-3">
-                    <div className="col-lg-4 col-md-4 col-sm-12 text-center border p-2">
-                      <img style={{ width: "70%" }} alt="Menu & Drinks" src={require("../assets/images/listing-logo09.png")} />
-                    </div>
-                    <div style={{ position: "relative" }} className="col-lg-8 col-md-8 col-sm-12 py-2">
-                      <h5 className="mb-1">Menu &amp; groceries</h5>
-                      <p className="mb-2"><small>Chicken Frozen, Chines salt, Cold drinks</small></p>
-                      <p>
-                        <small className="">
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                        </small>
-                        <small>(3) Review</small>
-                      </p>
-                      <span style={{ position: "absolute", top: 5, right: 5 }}><FontAwesomeIcon icon="heart" className="text-success mr-1" /></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-6 col-sm-12 mb-4">
-                <div className="container res-shadow res-border">
-                  <div className="row p-3">
-                    <div className="col-lg-4 col-md-4 col-sm-12 text-center border p-2">
-                      <img style={{ width: "70%" }} alt="Chefs" src={require("../assets/images/listing-logo12.png")} />
-                    </div>
-                    <div style={{ position: "relative" }} className="col-lg-8 col-md-8 col-sm-12 py-2">
-                      <h5 className="mb-1">Chef store</h5>
-                      <p className="mb-2"><small>Eggs, Noodles, Pastry</small></p>
-                      <p>
-                        <small className="">
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                        </small>
-                        <small>(1) Review</small>
-                      </p>
-                      <span style={{ position: "absolute", top: 5, right: 5 }}><FontAwesomeIcon icon="heart" className="text-success mr-1" /></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-6 col-sm-12 mb-4">
-                <div className="container res-shadow res-border">
-                  <div className="row p-3">
-                    <div className="col-lg-4 col-md-4 col-sm-12 text-center border p-2">
-                      <img style={{ width: "70%" }} alt="Menu's" src={require("../assets/images/listing-logo15.png")} />
-                    </div>
-                    <div style={{ position: "relative" }} className="col-lg-8 col-md-8 col-sm-12 py-2">
-                      <h5 className="mb-1">store In</h5>
-                      <p className="mb-2"><small>Fish Frozen, Fresh Juice, Salt</small></p>
-                      <p>
-                        <small className="">
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                        </small>
-                        <small>(1) Review</small>
-                      </p>
-                      <span style={{ position: "absolute", top: 5, right: 5 }}><FontAwesomeIcon icon="heart" className="text-success mr-1" /></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-6 col-sm-12 mb-4">
-                <div className="container res-shadow res-border">
-                  <div className="row p-3">
-                    <div className="col-lg-4 col-md-4 col-sm-12 text-center border p-2">
-                      <img style={{ width: "70%" }} alt="Food N&H" src={require("../assets/images/2.png")} />
-                    </div>
-                    <div style={{ position: "relative" }} className="col-lg-8 col-md-8 col-sm-12 py-2">
-                      <h5 className="mb-1">Grocery N&amp;H</h5>
-                      <p className="mb-2"><small>Pepper, drinks, hazelnut</small></p>
-                      <p>
-                        <small className="">
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                        </small>
-                        <small>(4) Review</small>
-                      </p>
-                      <span style={{ position: "absolute", top: 5, right: 5 }}><FontAwesomeIcon icon="heart" className="text-success mr-1" /></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-6 col-md-6 col-sm-12 mb-4">
-                <div className="container res-shadow res-border">
-                  <div className="row p-3">
-                    <div className="col-lg-4 col-md-4 col-sm-12 text-center border p-2">
-                      <img style={{ width: "70%" }} alt="Restaurant" src={require("../assets/images/listing-logo13.png")} />
-                    </div>
-                    <div style={{ position: "relative" }} className="col-lg-8 col-md-8 col-sm-12 py-2">
-                      <h5 className="mb-1">Middle shop</h5>
-                      <p className="mb-2"><small>Apple Juice, soda</small></p>
-                      <p>
-                        <small className="">
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                          <FontAwesomeIcon icon="star" className="rating mr-1" />
-                        </small>
-                        <small>(2) Review</small>
-                      </p>
-                      <span style={{ position: "absolute", top: 5, right: 5 }}><FontAwesomeIcon icon="heart" className="text-success mr-1" /></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </div> */}
+
+
+
             </div>
           </div>
         </div>
@@ -312,4 +272,16 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    storeList: state.storeList,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    store_list: () => dispatch(store_list()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

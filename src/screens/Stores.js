@@ -3,37 +3,40 @@ import React, { Component } from 'react';
 import Navbar2 from '../components/Navbar2';
 import Footer from '../components/Footer';
 import { connect } from 'react-redux';
-import { restaurant_list } from '../store/action';
+import { store_list } from '../store/action';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-class Restaurants extends Component {
+class Stores extends Component {
     constructor() {
         super()
         this.state = {
             categories: [],
             defaultSearchValue: "",
-            renderRestaurantList: true,
-            renderCategorizedRestaurants: false,
-            renderSearchRestaurants: false,
+            renderStoreList: true,
+            renderCategorizedStores: false,
+            renderSearchStores: false,
         }
         this.handleCategoriesCheckbox = this.handleCategoriesCheckbox.bind(this);
         this.handleSearchBar = this.handleSearchBar.bind(this);
     }
 
     async componentDidMount() {
-        this.props.restaurant_list();
+        this.props.store_list();
         const { state } = this.props.location
-        if (state) {
-            this.setState({
-                defaultSearchValue: state,
-            })
-            this.handleSearchBar(state)
-        }
+            if (state) {
+                this.setState({
+                    defaultSearchValue: state,
+                })
+                this.handleSearchBar(state)
+            }
     }
+
+    
+
 
     handleCategoriesCheckbox(event) {
         const { categories, } = this.state;
@@ -44,15 +47,15 @@ class Restaurants extends Component {
             categories.push(name);
             this.setState({
                 categories: categories,
-                renderRestaurantList: false,
-                renderCategorizedRestaurants: true,
+                renderStoreList: false,
+                renderCategorizedStores: true,
             })
             if (categories.length > 0) {
-                this._renderCategorizedRestaurants()
+                this._renderCategorizedStores()
             } else {
                 this.setState({
-                    renderRestaurantList: true,
-                    renderCategorizedRestaurants: false,
+                    renderStoreList: true,
+                    renderCategorizedStores: false,
                 })
             }
         } else {
@@ -61,15 +64,15 @@ class Restaurants extends Component {
                 categories.splice(index, 1);
                 this.setState({
                     categories: categories,
-                    renderRestaurantList: false,
-                    renderCategorizedRestaurants: true,
+                    renderStoreList: false,
+                    renderCategorizedStores: true,
                 })
                 if (categories.length > 0) {
-                    this._renderCategorizedRestaurants()
+                    this._renderCategorizedStores()
                 } else {
                     this.setState({
-                        renderRestaurantList: true,
-                        renderCategorizedRestaurants: false,
+                        renderStoreList: true,
+                        renderCategorizedStores: false,
                     })
                 }
             }
@@ -78,27 +81,28 @@ class Restaurants extends Component {
 
     handleSearchBar(event) {
         const searchText = event;
-        const { restaurantList } = this.props;
-        if (restaurantList) {
-            Object.keys(restaurantList).map((val) => { });
-            const result = restaurantList.filter((val) => {
+        const { storeList } = this.props;
+        if (storeList) {
+            Object.keys(storeList).map((val) => { });
+            const result = storeList.filter((val) => {
                 return val.userName.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1;
             })
+            // console.log(result)
             if (searchText.length > 0) {
                 this.setState({
-                    renderRestaurantList: false,
-                    renderCategorizedRestaurants: false,
-                    renderSearchRestaurants: true,
-                    searchRestaurants: result,
+                    renderStoreList: false,
+                    renderCategorizedStores: false,
+                    renderSearchStores: true,
+                    searchStores: result,
                     searchText: searchText,
                     defaultSearchValue: searchText,
                 })
             } else {
                 this.setState({
-                    renderRestaurantList: true,
-                    renderCategorizedRestaurants: false,
-                    renderSearchRestaurants: false,
-                    searchRestaurants: result,
+                    renderStoreList: true,
+                    renderCategorizedStores: false,
+                    renderSearchStores: false,
+                    searchStores: result,
                     searchText: searchText,
                     defaultSearchValue: searchText,
                 })
@@ -107,18 +111,18 @@ class Restaurants extends Component {
     }
 
     handleViewMenuBtn(resDetails) {
-        this.props.history.push('/restaurant-details', resDetails)
+        this.props.history.push('/store-details', resDetails)
     }
 
-    _renderRestaurantList() {
-        const { restaurantList } = this.props;
-        if (restaurantList) {
-            return Object.keys(restaurantList).map((val) => {
+    _renderStoreList() {
+        const { storeList } = this.props;
+        if (storeList) {
+            return Object.keys(storeList).map((val) => {
                 return (
-                    <div className="container bg-white p-3 px-0 mb-4" key={restaurantList[val].id}>
+                    <div className="container bg-white p-3 px-0 mb-4" key={storeList[val].id}>
                         <div className="row">
                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-center">
-                                <img style={{ width: "70%" }} alt="Natural Healthy Food" src={restaurantList[val].userProfileImageUrl} />
+                                <img style={{ width: "70%" }} alt="Natural Healthy Food" src={storeList[val].userProfileImageUrl} />
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-12 px-0">
                                 <p>
@@ -131,12 +135,12 @@ class Restaurants extends Component {
                                     </small>
                                     <small>(1) Review</small>
                                 </p>
-                                <h5 className="">{restaurantList[val].userName}</h5>
-                                <p className=""><small>Type of Items: <span>{restaurantList[val].typeOfFood.join(', ')}</span></small></p>
+                                <h5 className="">{storeList[val].userName}</h5>
+                                <p className=""><small>Type of Items: <span>{storeList[val].typeOfFood.join(', ')}</span></small></p>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-12 py-4 px-0">
                                 <span style={{ display: 'inline-block', textAlign: 'center', borderRadius: '3px', border: '1px solid #dddddd', padding: '6px 7px 0px 7px', marginRight: '16px' }} ><FontAwesomeIcon icon="heart" className="text-success" /></span>
-                                <button type="button" onClick={() => this.handleViewMenuBtn(restaurantList[val])} className="btn btn-warning btn-sm text-uppercase" style={{ marginBottom: '8px' }}>View Menu</button>
+                                <button type="button" onClick={() => this.handleViewMenuBtn(storeList[val])} className="btn btn-warning btn-sm text-uppercase" style={{ marginBottom: '8px' }}>View Menu</button>
                             </div>
                         </div>
                     </div>
@@ -145,20 +149,20 @@ class Restaurants extends Component {
         }
     }
 
-    _renderCategorizedRestaurants() {
-        const { restaurantList } = this.props;
+    _renderCategorizedStores() {
+        const { storeList } = this.props;
         const { categories, } = this.state;
-        if (restaurantList) {
-            return Object.keys(restaurantList).map((val) => {
-                return restaurantList[val].typeOfFood.map((e1) => {
+        if (storeList) {
+            return Object.keys(storeList).map((val) => {
+                return storeList[val].typeOfFood.map((e1) => {
                     return categories.map((e2) => {
                         if (e1 === e2) {
-                            // console.log("restaurantList[val].userName => ", restaurantList[val].userName)
+                            // console.log("storeList[val].userName => ", storeList[val].userName)
                             return (
-                                <div className="container bg-white p-3 px-0 mb-4" key={restaurantList[val].id}>
+                                <div className="container bg-white p-3 px-0 mb-4" key={storeList[val].id}>
                                     <div className="row">
                                         <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-center">
-                                            <img style={{ width: "70%" }} alt="Natural Healthy Food" src={restaurantList[val].userProfileImageUrl} />
+                                            <img style={{ width: "70%" }} alt="Natural Healthy Food" src={storeList[val].userProfileImageUrl} />
                                         </div>
                                         <div className="col-lg-6 col-md-6 col-sm-12 px-0">
                                             <p>
@@ -171,12 +175,12 @@ class Restaurants extends Component {
                                                 </small>
                                                 <small>(1) Review</small>
                                             </p>
-                                            <h5 className="">{restaurantList[val].userName}</h5>
-                                            <p className=""><small>Type of Items: <span>{restaurantList[val].typeOfFood.join(', ')}</span></small></p>
+                                            <h5 className="">{storeList[val].userName}</h5>
+                                            <p className=""><small>Type of Items: <span>{storeList[val].typeOfFood.join(', ')}</span></small></p>
                                         </div>
                                         <div className="col-lg-3 col-md-3 col-sm-12 py-4 px-0">
                                             <span style={{ display: 'inline-block', textAlign: 'center', borderRadius: '3px', border: '1px solid #dddddd', padding: '6px 7px 0px 7px', marginRight: '16px' }} ><FontAwesomeIcon icon="heart" className="text-success" /></span>
-                                            <button type="button" onClick={() => this.handleViewMenuBtn(restaurantList[val])} className="btn btn-warning btn-sm text-uppercase" style={{ marginBottom: '8px' }}>View Menu</button>
+                                            <button type="button" onClick={() => this.handleViewMenuBtn(storeList[val])} className="btn btn-warning btn-sm text-uppercase" style={{ marginBottom: '8px' }}>View Menu</button>
                                         </div>
                                     </div>
                                 </div>
@@ -188,15 +192,15 @@ class Restaurants extends Component {
         }
     }
 
-    _renderSearchRestaurants() {
-        const { searchText, searchRestaurants } = this.state;
-        if (searchRestaurants) {
-            return Object.keys(searchRestaurants).map((val) => {
+    _renderSearchStores() {
+        const { searchText, searchStores } = this.state;
+        if (searchStores) {
+            return Object.keys(searchStores).map((val) => {
                 return (
-                    <div className="container bg-white p-3 px-0 mb-4" key={searchRestaurants[val].id}>
+                    <div className="container bg-white p-3 px-0 mb-4" key={searchStores[val].id}>
                         <div className="row">
                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-center">
-                                <img style={{ width: "70%" }} alt="Natural Healthy Food" src={searchRestaurants[val].userProfileImageUrl} />
+                                <img style={{ width: "70%" }} alt="Natural Healthy Food" src={searchStores[val].userProfileImageUrl} />
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-12 px-0">
                                 <p>
@@ -209,12 +213,12 @@ class Restaurants extends Component {
                                     </small>
                                     <small>(1) Review</small>
                                 </p>
-                                <h5 className="">{searchRestaurants[val].userName}</h5>
-                                <p className=""><small>Type of Items: <span>{searchRestaurants[val].typeOfFood.join(', ')}</span></small></p>
+                                <h5 className="">{searchStores[val].userName}</h5>
+                                <p className=""><small>Type of Items: <span>{searchStores[val].typeOfFood.join(', ')}</span></small></p>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-12 py-4 px-0">
                                 <span style={{ display: 'inline-block', textAlign: 'center', borderRadius: '3px', border: '1px solid #dddddd', padding: '6px 7px 0px 7px', marginRight: '16px' }} ><FontAwesomeIcon icon="heart" className="text-success" /></span>
-                                <button type="button" onClick={() => this.handleViewMenuBtn(searchRestaurants[val])} className="btn btn-warning btn-sm text-uppercase" style={{ marginBottom: '8px' }}>View Menu</button>
+                                <button type="button" onClick={() => this.handleViewMenuBtn(searchStores[val])} className="btn btn-warning btn-sm text-uppercase" style={{ marginBottom: '8px' }}>View Menu</button>
                             </div>
                         </div>
                     </div>
@@ -224,14 +228,14 @@ class Restaurants extends Component {
     }
 
     render() {
-        const { renderRestaurantList, renderCategorizedRestaurants, renderSearchRestaurants, defaultSearchValue } = this.state;
+        const { renderStoreList, renderCategorizedStores, renderSearchStores, defaultSearchValue } = this.state;
         return (
             <div>
-                <div className="container-fluid restaurants-cont1">
+                <div className="container-fluid stores-cont1">
                     <div className="">
                         {/* <Navbar history={this.props.history} /> */}
                         <Navbar2 history={this.props.history} />
-                        <div className="container px-0 restaurants-cont1-text">
+                        <div className="container px-0 stores-cont1-text">
                             <div className="container">
                                 <div className="row justify-content-center">
                                     <div className="col-lg-6 col-md-6 col-sm-12 mb-3">
@@ -259,8 +263,8 @@ class Restaurants extends Component {
                                         <ul className="filter-list">
                                             <li>
                                                 <div className="custom-control custom-checkbox">
-                                                    <input type="checkbox" className="custom-control-input" id="apple-juice" name="Apple Juice" onChange={this.handleCategoriesCheckbox} />
-                                                    <label className="custom-control-label" htmlFor="apple-juice">Juices</label>
+                                                    <input type="checkbox" className="custom-control-input" id="apple-juice" name="Juice" onChange={this.handleCategoriesCheckbox} />
+                                                    <label className="custom-control-label" htmlFor="apple-juice">Juice</label>
                                                 </div>
                                             </li>
                                             <li>
@@ -271,7 +275,7 @@ class Restaurants extends Component {
                                             </li>
                                             <li>
                                                 <div className="custom-control custom-checkbox">
-                                                    <input type="checkbox" className="custom-control-input" id="beef-roast" name="Beef Roast" onChange={this.handleCategoriesCheckbox} />
+                                                    <input type="checkbox" className="custom-control-input" id="beef-roast" name="Beef" onChange={this.handleCategoriesCheckbox} />
                                                     <label className="custom-control-label" htmlFor="beef-roast">Beef</label>
                                                 </div>
                                             </li>
@@ -283,7 +287,7 @@ class Restaurants extends Component {
                                             </li>
                                             <li>
                                                 <div className="custom-control custom-checkbox">
-                                                    <input type="checkbox" className="custom-control-input" id="cheese-burger" name="Cheese Burger" onChange={this.handleCategoriesCheckbox} />
+                                                    <input type="checkbox" className="custom-control-input" id="cheese-burger" name="Cheese" onChange={this.handleCategoriesCheckbox} />
                                                     <label className="custom-control-label" htmlFor="cheese-burger">Cheese</label>
                                                 </div>
                                             </li>
@@ -301,9 +305,9 @@ class Restaurants extends Component {
                                 <h4 className="mb-3">Store's Found</h4>
                                 <div className="container px-0">
                                     <div className="col-lg-12 col-md-12 col-sm-12 mb-4 px-0">
-                                        {renderSearchRestaurants && this._renderSearchRestaurants()}
-                                        {renderCategorizedRestaurants && this._renderCategorizedRestaurants()}
-                                        {renderRestaurantList && this._renderRestaurantList()}
+                                        {renderSearchStores && this._renderSearchStores()}
+                                        {renderCategorizedStores && this._renderCategorizedStores()}
+                                        {renderStoreList && this._renderStoreList()}
                                     </div>
                                 </div>
                             </div>
@@ -349,14 +353,14 @@ class Restaurants extends Component {
 
 const mapStateToProps = state => {
     return {
-        restaurantList: state.restaurantList,
+        storeList: state.storeList,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        restaurant_list: () => dispatch(restaurant_list()),
+        store_list: () => dispatch(store_list()),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Restaurants);
+export default connect(mapStateToProps, mapDispatchToProps)(Stores);

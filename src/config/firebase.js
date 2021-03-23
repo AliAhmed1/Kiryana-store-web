@@ -119,7 +119,9 @@ function addItem(itemDetails) {
         if (user != null) {
             uid = user.uid;
         };
-        firebase.storage().ref().child(`itemImage/${uid}/` + itemImage.name).put(itemImage).then((url) => {
+        var imgId = Math.random()
+        // console.log(imgId)
+        firebase.storage().ref().child(`itemImage/${uid}/` + itemImage.name + imgId).put(itemImage).then((url) => {
             url.ref.getDownloadURL().then((success) => {
                 const itemImageUrl = success
                 console.log(itemImageUrl)

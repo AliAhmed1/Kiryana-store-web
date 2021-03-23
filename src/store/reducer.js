@@ -6,8 +6,8 @@ const reducer = (state = {}, action) => {
         case "REMOVE_USER": {
             return { ...state, user: action.user }
         }
-        case "RESTAURANT_LIST": {
-            return { ...state, restaurantList: action.restaurantList }
+        case "STORE_LIST": {
+            return { ...state, storeList: action.storeList }
         }
         case "ORDER_REQUEST": {
             return { ...state, orderRequest: action.orderRequest }
@@ -15,8 +15,8 @@ const reducer = (state = {}, action) => {
         case "MY_ORDER": {
             return { ...state, myOrder: action.myOrder }
         }
-        case "MY_FOODS": {
-            return { ...state, myFoods: action.myFoods }
+        case "MY_ITEMS": {
+            return { ...state, myItems: action.myItems }
         }
         default: {
             return state;

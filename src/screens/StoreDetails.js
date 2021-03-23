@@ -12,7 +12,7 @@ import '../App.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-class RestaurantDetails extends Component {
+class StoreDetails extends Component {
     constructor() {
         super()
         this.state = {
@@ -25,7 +25,12 @@ class RestaurantDetails extends Component {
             cartItemsList: [],
             totalPrice: 0,
             showCartList: false,
+            defaultSearchValue: [],
+            rendermenuItemsList: true,
+            renderCategorizedRestaurants: false,
+            renderSearchMenu: false,
         }
+        this.handleSearchValueBar = this.handleSearchValueBar.bind(this);
     }
 
     async componentDidMount() {
@@ -36,16 +41,48 @@ class RestaurantDetails extends Component {
                 resDetails: state,
             })
         } else {
-            this.props.history.push('/restaurants')
-        }
+            this.props.history.push('/stores')
+        }        
     }
 
+    
     static getDerivedStateFromProps(props) {
         const { state } = props.location;
         const { user } = props
         return {
             resDetails: state,
             userDetails: user,
+        }
+    }
+
+    handleSearchValueBar (event) {
+        const searchText = event;
+        const { menuItemsList } = this.state;
+        if (menuItemsList) {
+            Object.keys(menuItemsList).map((val) => { });
+            const result = menuItemsList.filter((val) => {
+                return val.itemIngredients.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1;
+            })
+            console.log(result)
+            if (searchText.length > 0) {
+                this.setState({
+                    rendermenuItemsList: false,
+                    renderCategorizedRestaurants: false,
+                    renderSearchMenu: true,
+                    searchRestaurants: result,
+                    searchText: searchText,
+                    defaultSearchValue: searchText,
+                })
+            } else {
+                this.setState({
+                    rendermenuItemsList: true,
+                    renderCategorizedRestaurants: false,
+                    renderSearchMenu: false,
+                    searchRestaurants: result,
+                    searchText: searchText,
+                    defaultSearchValue: searchText,
+                })
+            }
         }
     }
 
@@ -195,6 +232,31 @@ class RestaurantDetails extends Component {
         }
     }
 
+    _renderSearchMenu(){
+        const {searchRestaurants , menuItemsList } = this.state;
+        if(searchRestaurants) {
+            return Object.keys(searchRestaurants).map((val) => {
+                return (
+                    <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={searchRestaurants[val].id}>
+                        <div className="row">
+                            <div className="col-lg-2 col-md-3 col-8 offset-2 offset-lg-0 offset-md-0 px-0 mb-3 text-center">
+                                <img style={{ width: "70px", height: "70px" }} alt="item image" src={searchRestaurants[val].itemImageUrl} />
+                            </div>
+                            <div className="col-lg-7 col-md-6 col-sm-12 px-0">
+                                <h6 className="">{searchRestaurants[val].itemTitle}</h6>
+                                <p className=""><small>{searchRestaurants[val].itemIngredients}</small></p>
+                            </div>
+                            <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-center">
+                                <span className="mx-3">RS.{searchRestaurants[val].itemPrice}</span>
+                                <span className="menuItemsListAddBtn" onClick={() => this.addToCart(searchRestaurants[val])} ><FontAwesomeIcon icon="plus" className="text-warning" /></span>
+                            </div>
+                        </div>
+                    </div>
+                )
+            })
+        } 
+    }
+
     _renderCartItemsList() {
         const { cartItemsList } = this.state
         if (cartItemsList) {
@@ -216,7 +278,7 @@ class RestaurantDetails extends Component {
     }
 
     render() {
-        const { tab1, tab2, tab3, tab1Content, tab2Content, tab3Content, resDetails, totalPrice, cartItemsList, showCartList } = this.state;
+        const { tab1, tab2, tab3, tab1Content, tab2Content, tab3Content, resDetails, totalPrice, cartItemsList, showCartList,defaultSearchValue , renderSearchMenu , rendermenuItemsList } = this.state;
         return (
             <div>
                 <div className="container-fluid res-details-cont1">
@@ -294,14 +356,15 @@ class RestaurantDetails extends Component {
                                         < div className="row menu-section">
                                             <div className="col-12 bg-white p-4">
                                                 <div className="input-group input-group-sm mb-4 mt-2">
-                                                    <input type="text" className="form-control search-menu-input" htmlFor="search-menu" placeholder="Search item" />
+                                                    <input type="text" className="form-control search-menu-input" value={defaultSearchValue} onChange={(e) => this.handleSearchValueBar(e.target.value)} htmlFor="search-menu" placeholder="Search item" />
                                                     <div className="input-group-append">
                                                         <span className="input-group-text search-menu-text" id="search-menu"><FontAwesomeIcon icon="search" /></span>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <h6 className="mb-4 text-warning">Best items:</h6>
-                                                    {this._renderMenuItemsList()}
+                                                    {rendermenuItemsList && this._renderMenuItemsList()}
+                                                    {renderSearchMenu && this._renderSearchMenu()}
                                                 </div>
                                             </div>
                                         </div>
@@ -373,4 +436,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(RestaurantDetails);
+export default connect(mapStateToProps, null)(StoreDetails);

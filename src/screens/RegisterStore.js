@@ -7,7 +7,7 @@ import { signUp } from '../config/firebase';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css'
 
-export default class RegisterRestaurant extends Component {
+export default class RegisterStore extends Component {
     constructor() {
         super()
         this.state = {
@@ -313,8 +313,8 @@ export default class RegisterRestaurant extends Component {
                         <form action="javascript:void(0)">
                             <div className="form-row">
                                 <div className="form-group col-md-6">
-                                    <label htmlFor="userFullName">Full Name</label>
-                                    <input type="text" className="form-control" id="userName" placeholder="Full Name" onKeyUp={(e) => this.handleUserName(e.target.value)} />
+                                    <label htmlFor="userFullName">Store Name</label>
+                                    <input type="text" className="form-control" id="userName" placeholder="Store Name" onKeyUp={(e) => this.handleUserName(e.target.value)} />
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label htmlFor="userEmail">Email</label>

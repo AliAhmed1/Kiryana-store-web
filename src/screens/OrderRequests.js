@@ -30,7 +30,7 @@ class OrderRequests extends Component {
         // console.log("Did Mount => ", user)
         // this.fetchOrderRequests()
         // if (userDetails.isRestaurant) {
-        //     // this.props.history.push('/restaurants')
+        //     // this.props.history.push('/stores')
         //     console.log("Didmount userDetails.isRestaurant => ", userDetails.isRestaurant)
         // }
     }

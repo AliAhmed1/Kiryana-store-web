@@ -156,7 +156,7 @@ a:hover{
 }
 
 .home-cont3{
-  background: url('./assets/images/call-to-action-paralax.jpg') no-repeat center / cover;
+  background: url('./assets/images/banner-design.jpg') no-repeat center / cover;
 }
 
 /* For Footer.js */
@@ -228,7 +228,7 @@ a:hover{
 
 /* For RegisterRestaurant */
 .register-cont1{
-  background: url('./assets/images/fb-subheader-4.jpg') no-repeat center / cover;
+  background: url('./assets/images/colourful-ingredients.jpg') no-repeat center / cover;
 }
 
 .register-cont1-text{
@@ -243,12 +243,12 @@ a:hover{
 }
 
 
-/* For Restaurants.js */
-.restaurants-cont1{
-  background: url('./assets/images/fb-subheader-2.jpg') no-repeat center / cover;
+/* For stores.js */
+.stores-cont1{
+  background: url('./assets/images/variations-jar1.jpg') no-repeat center / cover;
 }
 
-.restaurants-cont1-text{
+.stores-cont1-text{
   padding-top: 100px !important;
   padding-bottom: 100px !important;
 }

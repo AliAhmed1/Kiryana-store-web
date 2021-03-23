@@ -39,20 +39,20 @@ const remove_user = () => {
     }
 }
 
-const restaurant_list = () => {
+const store_list = () => {
     return (dispatch) => {
         db.collection('users').onSnapshot(snapshot => {
-            const restaurantList = [];
+            const storeList = [];
             snapshot.forEach(doc => {
                 if (doc.data().isRestaurant) {
                     const obj = { id: doc.id, ...doc.data() }
-                    restaurantList.push(obj);
+                    storeList.push(obj);
                 }
             })
-            // console.log('Restaurant List', restaurantList);
+            // console.log('Restaurant List', storeList);
             dispatch({
-                type: 'RESTAURANT_LIST',
-                restaurantList: restaurantList,
+                type: 'STORE_LIST',
+                storeList: storeList,
             })
         })
     }
@@ -102,21 +102,21 @@ const my_order = () => {
     }
 }
 
-const my_foods = () => {
+const my_items = () => {
     return (dispatch) => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 // console.log("user uid => ", user.uid)
                 db.collection('users').doc(user.uid).collection("menuItems").onSnapshot(snapshot => {
-                    const myFoods = [];
+                    const myItems = [];
                     snapshot.forEach(doc => {
                         const obj = { id: doc.id, ...doc.data() }
                         // console.log("Order Request From Action => ", obj)
-                        myFoods.push(obj)
+                        myItems.push(obj)
                     })
                     dispatch({
-                        type: 'MY_FOODS',
-                        myFoods: myFoods,
+                        type: 'MY_ITEMS',
+                        myItems: myItems,
                     })
                 })
             }
@@ -128,8 +128,8 @@ const my_foods = () => {
 export {
     update_user,
     remove_user,
-    restaurant_list,
+    store_list,
     order_request,
     my_order,
-    my_foods,
+    my_items,
 }
