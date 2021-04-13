@@ -137,7 +137,7 @@ class Footer extends Component {
                 {/* Footer Copyright Section */}
                 <div className="container">
                     <div className="col-12 footer-copyright">
-                        <p>© 2021 Quick Food. All Rights Reserved. Powered By <span style={{ color: "#eb6825", fontWeight: 700 }}>Kiryana Store</span></p>
+                        <p>© 2021 Copyright All Rights Reserved. Powered By <span style={{ color: "#7d1d96", fontWeight: 700 }}>Ali</span></p>
                     </div>
                 </div>
             </div>

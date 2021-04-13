@@ -76,7 +76,7 @@ class Home extends Component {
   _renderStoreList() {
     const { storeList } = this.props;
     if (storeList) {
-      return Object.keys(storeList).slice(0, 5).map((val) => {
+      return Object.keys(storeList).slice(0, 6).map((val) => {
         return (
           <div className="col-lg-6 col-md-6 col-sm-12 mb-4" key={storeList[val].id}>
             <div className="container res-shadow res-border">
