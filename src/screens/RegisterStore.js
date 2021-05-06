@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import { signUp } from '../config/firebase';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css'
+import '../App.scss'
 
 export default class RegisterStore extends Component {
     constructor() {

@@ -112,7 +112,7 @@ function logIn(userLoginDetails) {
 }
 
 function addItem(itemDetails) {
-    const { itemTitle, itemIngredients, itemPrice, itemImage, chooseItemType, } = itemDetails;
+    const { itemTitle, itemIngredients,itemSalePrice, itemPrice, itemImage, chooseItemType, } = itemDetails;
     return new Promise((resolve, reject) => {
         let user = firebase.auth().currentUser;
         var uid;
@@ -129,6 +129,7 @@ function addItem(itemDetails) {
                     itemTitle: itemTitle,
                     itemIngredients: itemIngredients,
                     itemPrice: itemPrice,
+                    itemSalePrice: itemSalePrice,
                     itemImageUrl: itemImageUrl,
                     chooseItemType: chooseItemType,
                     // userUid: uid,
@@ -161,7 +162,7 @@ function addItem(itemDetails) {
     })
 }
 
-function orderNow(cartItemsList, totalPrice, resDetails, userDetails, history) {
+function orderNow(cartItemsList, totalPrice, totalActualPrice,resDetails, userDetails, history) {
     return new Promise((resolve, reject) => {
         let user = firebase.auth().currentUser;
         var uid;
@@ -172,6 +173,7 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails, history) {
         const myOrder = {
             itemsList: cartItemsList,
             totalPrice: totalPrice,
+            totalActualPrice : totalActualPrice,
             status: "PENDING",
             ...resDetails,
         }
@@ -179,6 +181,7 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails, history) {
         const orderRequest = {
             itemsList: cartItemsList,
             totalPrice: totalPrice,
+            totalActualPrice : totalActualPrice,
             status: "PENDING",
             ...userDetails,
         }

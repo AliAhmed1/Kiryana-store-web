@@ -14,7 +14,7 @@ import 'firebase/firestore'
 
 
 import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css'
+import '../App.scss'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -71,7 +71,7 @@ class MyItems extends Component {
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-right">
                                 <button onClick={() => this.deleteItem(myItems[val].id)} className="optionButtons btn btn-warning py-1 px-2 mx-1">Delete</button>
-                                <span className="mx-3"><b>RS.{myItems[val].itemPrice}</b></span>
+                                <span className="mx-3"><b>RS.{myItems[val].itemSalePrice}</b></span>
                             </div>
                         </div>
                     </div>

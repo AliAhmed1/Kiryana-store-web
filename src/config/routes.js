@@ -11,6 +11,7 @@ import AddMenuItems from '../screens/AddMenuItems';
 import OrderRequests from '../screens/OrderRequests';
 import MyOrders from '../screens/MyOrders';
 import MyItems from '../screens/MyItems';
+import Dashboard from '../screens/Dashboard/Dashboard'
 
 
 
@@ -29,6 +30,7 @@ const MyRoutes = () => (
             <Route path='/order-requests' component={OrderRequests}></Route>
             <Route path='/my-orders' component={MyOrders}></Route>
             <Route path='/my-items' component={MyItems}></Route>
+            <Route path='/dashboard' component={Dashboard}></Route>
         </div>
     </Router>
 )

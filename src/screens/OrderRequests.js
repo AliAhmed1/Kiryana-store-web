@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { order_request } from '../store/action';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css'
+import '../App.scss'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -21,6 +21,9 @@ class OrderRequests extends Component {
             tab1Content: true,
             tab2Content: false,
             tab3Content: false,
+            checkPending: true,
+            checkProgress: true,
+            checkDelivered: true,
         }
     }
 
@@ -33,6 +36,8 @@ class OrderRequests extends Component {
         //     // this.props.history.push('/stores')
         //     console.log("Didmount userDetails.isRestaurant => ", userDetails.isRestaurant)
         // }
+
+
     }
 
     static getDerivedStateFromProps(props) {
@@ -73,7 +78,41 @@ class OrderRequests extends Component {
         }
     }
 
+    componentDidUpdate() {
+       
+    }
 
+    handlecheck() {
+        if (this.props.orderRequest) {
+            for (var i in this.props.orderRequest) {
+                if (this.props.orderRequest[i].status === "PENDING") {
+                    this.checkPending = true
+                    break;
+                }
+                else {
+                    this.checkPending = false
+                }
+                if (this.props.orderRequest[i].status === "IN PROGRESS") {
+                    this.checkProgress = true
+                    break;
+                }
+                else {
+                    this.checkProgress = false
+                }
+                if (this.props.orderRequest[i].status === "DELIVERED") {
+                    this.checkDelivered = true
+                    break;
+                }
+                else {
+                    this.checkDelivered = false
+                }
+                console.log(this.props.orderRequest[i].status)
+            }
+            console.log(this.checkPending, this.checkProgress, this.checkDelivered)
+           
+
+        }
+    }
     handleSendToInProgressBtn(userUid, orderId) {
         const { userDetails } = this.state;
         const restaurantUid = userDetails.userUid
@@ -83,7 +122,7 @@ class OrderRequests extends Component {
             // console.log("First Seccussfully send to IN PROGRESS")
             firebase.firestore().collection('users').doc(userUid).collection('myOrder').doc(orderId).update({
                 status: "IN PROGRESS",
-            }).then(()=>{
+            }).then(() => {
                 // console.log("Second Seccussfully send to IN PROGRESS")
             })
         })
@@ -98,7 +137,7 @@ class OrderRequests extends Component {
             console.log("First Seccussfully send to IN PROGRESS")
             firebase.firestore().collection('users').doc(userUid).collection('myOrder').doc(orderId).update({
                 status: "DELIVERED",
-            }).then(()=>{
+            }).then(() => {
                 console.log("Second Seccussfully send to IN PROGRESS")
             })
         })
@@ -112,6 +151,7 @@ class OrderRequests extends Component {
                 const userUid = orderRequest[val].userUid;
                 const orderId = orderRequest[val].id;
                 if (orderRequest[val].status === "PENDING") {
+                    // this.checkPending = true
                     return (
                         <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={orderRequest[val].id}>
                             <div className="row mb-3">
@@ -136,7 +176,7 @@ class OrderRequests extends Component {
                                                 <p className="mb-1"><small>{orderRequest[val].itemsList[val2].itemIngredients}</small></p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-right">
-                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{orderRequest[val].itemsList[val2].itemPrice}</b></span>
+                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{orderRequest[val].itemsList[val2].itemSalePrice}</b></span>
                                             </div>
                                         </div>
                                     )
@@ -153,6 +193,10 @@ class OrderRequests extends Component {
                         </div>
                     )
                 }
+                // else {
+                //     this.checkPending = false;
+                // }
+
             })
         }
     }
@@ -166,6 +210,7 @@ class OrderRequests extends Component {
                 const orderId = orderRequest[val].id;
                 // console.log(orderRequest[val].status === "PENDING")
                 if (orderRequest[val].status === "IN PROGRESS") {
+                    // this.checkProgress = true
                     return (
                         <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={orderRequest[val].id}>
                             <div className="row mb-3">
@@ -190,7 +235,7 @@ class OrderRequests extends Component {
                                                 <p className="mb-1"><small>{orderRequest[val].itemsList[val2].itemIngredients}</small></p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-right">
-                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{orderRequest[val].itemsList[val2].itemPrice}</b></span>
+                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{orderRequest[val].itemsList[val2].itemSalePrice}</b></span>
                                             </div>
                                         </div>
                                     )
@@ -198,7 +243,7 @@ class OrderRequests extends Component {
                             }
                             <div className="row mb-3 mb-md-0 mb-lg-0">
                                 <div className="col-lg-6 col-md-6 col-12 order-lg-first order-md-first order-last ">
-                                    <button type="button" onClick={()=>{this.handleSendToDeliveredBtn(userUid, orderId)}} className="btn btn-warning btn-sm text-uppercase px-3"><b>Send To Delivered</b></button>
+                                    <button type="button" onClick={() => { this.handleSendToDeliveredBtn(userUid, orderId) }} className="btn btn-warning btn-sm text-uppercase px-3"><b>Send To Delivered</b></button>
                                 </div>
                                 <div className="col-lg-6 col-md-6 col-12 text-lg-right text-md-right">
                                     <p><b className="mr-4">Total Price:</b><span style={{ fontSize: '1.1rem' }}>RS.{orderRequest[val].totalPrice}</span></p>
@@ -207,8 +252,14 @@ class OrderRequests extends Component {
                         </div>
                     )
                 }
+                else {
+                    // this.checkProgress = false;
+                }
+
             })
         }
+
+
     }
 
     _renderDeliveredOrderRequest() {
@@ -218,6 +269,7 @@ class OrderRequests extends Component {
             return Object.keys(orderRequest).map((val) => {
                 // console.log(orderRequest[val].status === "PENDING")
                 if (orderRequest[val].status === "DELIVERED") {
+                    // this.checkDelivered = true
                     return (
                         <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={orderRequest[val].id}>
                             <div className="row mb-3">
@@ -242,7 +294,7 @@ class OrderRequests extends Component {
                                                 <p className="mb-1"><small>{orderRequest[val].itemsList[val2].itemIngredients}</small></p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-right">
-                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{orderRequest[val].itemsList[val2].itemPrice}</b></span>
+                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{orderRequest[val].itemsList[val2].itemSalePrice}</b></span>
                                             </div>
                                         </div>
                                     )
@@ -260,12 +312,19 @@ class OrderRequests extends Component {
                         </div>
                     )
                 }
+                // else {
+                //     this.checkDelivered = false
+                // }
+
             })
         }
+
+
     }
 
     render() {
         const { tab1, tab2, tab3, tab1Content, tab2Content, tab3Content, userDetails } = this.state;
+        this.handlecheck();
         return (
             <div>
                 <div className="container-fluid res-details-cont1">
@@ -308,19 +367,53 @@ class OrderRequests extends Component {
                                     {tab1Content &&
                                         < div className="row pending-order-section">
                                             <div className="col-12 bg-white p-4">
-                                                {this._renderPendingOrderRequest()}
+                                                <br />
+                                                <br />
+
+                                                {this.state.checkPending
+                                                    ? this._renderPendingOrderRequest() :
+                                                    <div className="my-4 d-flex justify-content-center">
+                                                        <h5>No Order is Pending</h5>
+                                                    </div>
+                                                }
+
+                                                <br />
+                                                <br />
+
                                             </div>
                                         </div>
                                     }
                                     {tab2Content && <div className="row inProgress-order-section">
                                         <div className="col-12 bg-white p-4">
-                                            {this._renderInProgressOrderRequest()}
+                                            <br />
+                                            <br />
+                                            {this.state.checkProgress
+                                                ? this._renderInProgressOrderRequest() :
+                                                <div className="my-4 d-flex justify-content-center">
+                                                    <h5>No Order is in Progress</h5>
+                                                </div>
+                                            }
+
+                                            <br />
+                                            <br />
+
                                         </div>
                                     </div>
                                     }
                                     {tab3Content && <div className="row delivered-order-section">
                                         <div className="col-12 bg-white p-4">
-                                            {this._renderDeliveredOrderRequest()}
+                                            <br />
+                                            <br />
+                                            {this.state.checkDelivered == true
+                                                ? this._renderDeliveredOrderRequest() :
+                                                <div className="my-4 d-flex justify-content-center">
+                                                    <h5>No Order is Delivered</h5>
+                                                </div>
+                                            }{console.log(this.state.checkDelivered)}
+
+                                            <br />
+                                            <br />
+
                                         </div>
                                     </div>
                                     }

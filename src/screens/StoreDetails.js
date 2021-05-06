@@ -8,7 +8,7 @@ import { orderNow } from '../config/firebase';
 import Swal from 'sweetalert2'
 
 import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css'
+import '../App.scss'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -24,6 +24,7 @@ class StoreDetails extends Component {
             tab3Content: false,
             cartItemsList: [],
             totalPrice: 0,
+            totalActualPrice: 0,
             showCartList: false,
             defaultSearchValue: [],
             rendermenuItemsList: true,
@@ -42,10 +43,10 @@ class StoreDetails extends Component {
             })
         } else {
             this.props.history.push('/stores')
-        }        
+        }
     }
 
-    
+
     static getDerivedStateFromProps(props) {
         const { state } = props.location;
         const { user } = props
@@ -55,7 +56,7 @@ class StoreDetails extends Component {
         }
     }
 
-    handleSearchValueBar (event) {
+    handleSearchValueBar(event) {
         const searchText = event;
         const { menuItemsList } = this.state;
         if (menuItemsList) {
@@ -63,7 +64,7 @@ class StoreDetails extends Component {
             const result = menuItemsList.filter((val) => {
                 return val.itemIngredients.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1;
             })
-            console.log(result)
+            // console.log(result)
             if (searchText.length > 0) {
                 this.setState({
                     rendermenuItemsList: false,
@@ -132,36 +133,44 @@ class StoreDetails extends Component {
     }
 
     addToCart(item) {
-        const { cartItemsList, totalPrice } = this.state
+        const { cartItemsList, totalPrice, totalActualPrice } = this.state
         if (item) {
             cartItemsList.push(item);
             this.setState({
-                totalPrice: totalPrice + Number(item.itemPrice),
+                totalPrice: totalPrice + Number(item.itemSalePrice),
+                totalActualPrice: totalActualPrice + Number(item.itemPrice),
                 cartItemsList: cartItemsList,
                 showCartList: true,
             })
+            
         }
+        // console.log(totalActualPrice, "    ",totalPrice)
     }
 
+
     removeCartItem(itemIndex) {
-        const { cartItemsList, totalPrice } = this.state
-        const removedItemPrice = Number(cartItemsList[itemIndex].itemPrice)
+        const { cartItemsList, totalPrice, totalActualPrice } = this.state
+        const removedItemPrice = Number(cartItemsList[itemIndex].itemSalePrice)
+        const removedActualPrice = Number(cartItemsList[itemIndex].itemPrice)
         cartItemsList.splice(itemIndex, 1);
         this.setState({
             totalPrice: totalPrice - removedItemPrice,
+            totalActualPrice: totalActualPrice - removedActualPrice,
             cartItemsList: cartItemsList,
         })
+        // console.log(totalActualPrice)    
+
     }
 
     async handleConfirmOrderBtn() {
-        const { cartItemsList, totalPrice, resDetails, userDetails } = this.state;
+        const { cartItemsList, totalPrice, totalActualPrice, resDetails, userDetails } = this.state;
         console.log(cartItemsList.length)
         if (userDetails) {
             if (!userDetails.isRestaurant) {
                 if (cartItemsList.length > 0) {
                     try {
                         const history = this.props.history;
-                        const orderNowReturn = await orderNow(cartItemsList, totalPrice, resDetails, userDetails, history)
+                        const orderNowReturn = await orderNow(cartItemsList, totalPrice, totalActualPrice, resDetails, userDetails, history)
                         console.log(orderNowReturn)
                         // console.log("Successfully Ordered")
                         Swal.fire({
@@ -210,20 +219,22 @@ class StoreDetails extends Component {
     _renderMenuItemsList() {
         const { menuItemsList } = this.state;
         if (menuItemsList) {
-            return Object.keys(menuItemsList).map((val) => {
+            let obj = [...menuItemsList]
+            obj.sort((a,b) => a.itemSalePrice > b.itemSalePrice ? 1 : -1)
+            return Object.keys(obj).map((val) => {
                 return (
-                    <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={menuItemsList[val].id}>
+                    <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={obj[val].id}>
                         <div className="row">
                             <div className="col-lg-2 col-md-3 col-8 offset-2 offset-lg-0 offset-md-0 px-0 mb-3 text-center">
-                                <img style={{ width: "70px", height: "70px" }} alt="item image" src={menuItemsList[val].itemImageUrl} />
+                                <img style={{ width: "70px", height: "70px" }} alt="item image" src={obj[val].itemImageUrl} />
                             </div>
                             <div className="col-lg-7 col-md-6 col-sm-12 px-0">
-                                <h6 className="">{menuItemsList[val].itemTitle}</h6>
-                                <p className=""><small>{menuItemsList[val].itemIngredients}</small></p>
+                                <h6 className="">{obj[val].itemTitle}</h6>
+                                <p className=""><small>{obj[val].itemIngredients}</small></p>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-center">
-                                <span className="mx-3">RS.{menuItemsList[val].itemPrice}</span>
-                                <span className="menuItemsListAddBtn" onClick={() => this.addToCart(menuItemsList[val])} ><FontAwesomeIcon icon="plus" className="text-warning" /></span>
+                                <span className="mx-3">RS.{obj[val].itemSalePrice}</span>
+                                <span className="menuItemsListAddBtn" onClick={() => this.addToCart(obj[val])} ><FontAwesomeIcon icon="plus" className="text-warning" /></span>
                             </div>
                         </div>
                     </div>
@@ -232,29 +243,31 @@ class StoreDetails extends Component {
         }
     }
 
-    _renderSearchMenu(){
-        const {searchRestaurants , menuItemsList } = this.state;
-        if(searchRestaurants) {
-            return Object.keys(searchRestaurants).map((val) => {
+    _renderSearchMenu() {
+        const { searchRestaurants, menuItemsList } = this.state;
+        if (searchRestaurants) {
+            let obj = [...searchRestaurants]
+            obj.sort((a,b) => a.itemSalePrice > b.itemSalePrice ? 1 : -1)
+            return Object.keys(obj).map((val) => {
                 return (
-                    <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={searchRestaurants[val].id}>
+                    <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={obj[val].id}>
                         <div className="row">
                             <div className="col-lg-2 col-md-3 col-8 offset-2 offset-lg-0 offset-md-0 px-0 mb-3 text-center">
-                                <img style={{ width: "70px", height: "70px" }} alt="item image" src={searchRestaurants[val].itemImageUrl} />
+                                <img style={{ width: "70px", height: "70px" }} alt="item image" src={obj[val].itemImageUrl} />
                             </div>
                             <div className="col-lg-7 col-md-6 col-sm-12 px-0">
-                                <h6 className="">{searchRestaurants[val].itemTitle}</h6>
-                                <p className=""><small>{searchRestaurants[val].itemIngredients}</small></p>
+                                <h6 className="">{obj[val].itemTitle}</h6>
+                                <p className=""><small>{obj[val].itemIngredients}</small></p>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-center">
-                                <span className="mx-3">RS.{searchRestaurants[val].itemPrice}</span>
-                                <span className="menuItemsListAddBtn" onClick={() => this.addToCart(searchRestaurants[val])} ><FontAwesomeIcon icon="plus" className="text-warning" /></span>
+                                <span className="mx-3">RS.{obj[val].itemSalePrice}</span>
+                                <span className="menuItemsListAddBtn" onClick={() => this.addToCart(obj[val])} ><FontAwesomeIcon icon="plus" className="text-warning" /></span>
                             </div>
                         </div>
                     </div>
                 )
             })
-        } 
+        }
     }
 
     _renderCartItemsList() {
@@ -268,7 +281,7 @@ class StoreDetails extends Component {
                                 <p className="mb-0">{cartItemsList[val].itemTitle}</p>
                             </div>
                             <div className="col-4 pl-0 text-right">
-                                <p className="mb-0"><span className="food-price">RS.{cartItemsList[val].itemPrice}</span><span onClick={() => this.removeCartItem(val)} className="remove-food-item"><FontAwesomeIcon icon="times" /></span></p>
+                                <p className="mb-0"><span className="food-price">RS.{cartItemsList[val].itemSalePrice}</span><span onClick={() => this.removeCartItem(val)} className="remove-food-item"><FontAwesomeIcon icon="times" /></span></p>
                             </div>
                         </div>
                     </li>
@@ -278,7 +291,7 @@ class StoreDetails extends Component {
     }
 
     render() {
-        const { tab1, tab2, tab3, tab1Content, tab2Content, tab3Content, resDetails, totalPrice, cartItemsList, showCartList,defaultSearchValue , renderSearchMenu , rendermenuItemsList } = this.state;
+        const { tab1, tab2, tab3, tab1Content, tab2Content, tab3Content, resDetails, totalPrice, cartItemsList, showCartList, defaultSearchValue, renderSearchMenu, rendermenuItemsList } = this.state;
         return (
             <div>
                 <div className="container-fluid res-details-cont1">
@@ -308,7 +321,7 @@ class StoreDetails extends Component {
                                     <div className="category-heading py-0 mb-1">
                                         <h6 className="m-0"><FontAwesomeIcon icon="utensils" className="mr-2" />Categories</h6>
                                     </div>
-                                    <br/>
+                                    <br />
                                     <div>
                                         <ul className="category-list">
                                             <li>
@@ -388,7 +401,7 @@ class StoreDetails extends Component {
                                         <div className="col-12 bg-white p-4">
                                             <h5>Overview {resDetails.userName}</h5>
                                             <p>Base prepared fresh daily. Extra items are available in choose extra
-                                                Choose you sauce: Go for on your Bread base for no extra cost.
+                                            Choose you sauce: Go for on your Bread base for no extra cost.
                                                 Choose fingers or Un cut on any size Bread</p>
                                         </div>
                                     </div>

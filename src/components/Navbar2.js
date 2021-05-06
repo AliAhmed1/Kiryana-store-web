@@ -49,6 +49,10 @@ class Navbar2 extends Component {
         this.props.history.push('/')
     }
 
+    handleDashboard(){
+        this.props.history.push('/dashboard')
+    }
+
     _renderWithOutLogin() {
         return (
             <ul className="navbar-nav ml-auto">
@@ -83,6 +87,9 @@ class Navbar2 extends Component {
                     </li>
                     <li className="nav-item">
                         <span className="nav-link active text-uppercase mr-2">{updated_user.userName}</span>
+                    </li>
+                    <li className="nav-item">
+                        <button type="button" className="btn btn-warning btn-sm text-uppercase mr-2 mr-1 px-3" onClick={() => this.handleDashboard()}>Dashboard</button>
                     </li>
                     <li className="nav-item">
                         <button type="button" className="btn btn-warning btn-sm text-uppercase mr-2 mr-1 px-3" onClick={() => this.handleLogOutBtn()}>Log Out</button>

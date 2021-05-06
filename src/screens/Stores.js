@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { store_list } from '../store/action';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css'
+import '../App.scss'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

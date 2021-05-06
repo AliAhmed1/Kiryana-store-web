@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 
 
 import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css'
+import '../App.scss'
 
 
 export default class AddMenuItems extends Component {
@@ -18,6 +18,7 @@ export default class AddMenuItems extends Component {
             itemTitle: "",
             itemIngredients: "",
             itemPrice: "",
+            itemSalePrice: "",
             itemImage: "",
             chooseItemType: "",
             showError: false,
@@ -42,7 +43,7 @@ export default class AddMenuItems extends Component {
     }
 
     async handleAddYourItemBtn() {
-        const { itemTitle, itemIngredients, itemPrice, itemImage, chooseItemType, } = this.state
+        const { itemTitle, itemIngredients,itemSalePrice, itemPrice, itemImage, chooseItemType, } = this.state
         if (!itemTitle) {
             this.setState({
                 showError: true,
@@ -54,6 +55,12 @@ export default class AddMenuItems extends Component {
                 registerFormError: "Invalid item ingredients."
             })
         } else if (!itemPrice) {
+            this.setState({
+                showError: true,
+                registerFormError: "Invalid item price."
+            })
+        }
+        else if (!itemSalePrice) {
             this.setState({
                 showError: true,
                 registerFormError: "Invalid item price."
@@ -76,7 +83,7 @@ export default class AddMenuItems extends Component {
                 registerFormError: ""
             })
             const itemDetails = {
-                itemTitle, itemIngredients, itemPrice, itemImage, chooseItemType, propsHistory: this.props.history,
+                itemTitle, itemIngredients, itemPrice, itemSalePrice , itemImage, chooseItemType, propsHistory: this.props.history,
             }
             try {
                 const addItemReturn = await addItem(itemDetails)
@@ -128,8 +135,12 @@ export default class AddMenuItems extends Component {
                             </div>
                             <div className="form-row">
                                 <div className="form-group col-md-6">
-                                    <label htmlFor="itemPrice"><b>Price</b></label>
+                                    <label htmlFor="itemPrice"><b>Actual Price</b></label>
                                     <input type="number" className="form-control" id="itemPrice" placeholder="Price in number" onChange={(e) => this.setState({ itemPrice: e.target.value })} />
+                                </div>
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="itemSalePrice"><b>Selling Price</b></label>
+                                    <input type="number" className="form-control" id="itemSalePrice" placeholder="Price in number" onChange={(e) => this.setState({ itemSalePrice: e.target.value })} />
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label className="mb-2"><b>Item Image</b></label>
@@ -143,26 +154,26 @@ export default class AddMenuItems extends Component {
                             <div className="form-row">
                                 <div className="form-group col-md-3">
                                     <div className="custom-control custom-radio">
-                                        <input type="radio" className="custom-control-input" id="kebabs" value="kebabs" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
-                                        <label className="custom-control-label" htmlFor="kebabs">Kebabs</label>
+                                        <input type="radio" className="custom-control-input" id="Meat" value="Meat" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
+                                        <label className="custom-control-label" htmlFor="Meat">Meat</label>
                                     </div>
                                 </div>
                                 <div className="form-group col-md-3">
                                     <div className="custom-control custom-radio">
-                                        <input type="radio" className="custom-control-input" id="chicken" value="chicken" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
-                                        <label className="custom-control-label" htmlFor="chicken">Chicken</label>
+                                        <input type="radio" className="custom-control-input" id="Snacks" value="Snacks" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
+                                        <label className="custom-control-label" htmlFor="Snacks">Snacks</label>
                                     </div>
                                 </div>
                                 <div className="form-group col-md-3">
                                     <div className="custom-control custom-radio">
-                                        <input type="radio" className="custom-control-input" id="burgers" value="burgers" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
-                                        <label className="custom-control-label" htmlFor="burgers">Burgers</label>
+                                        <input type="radio" className="custom-control-input" id="Rice" value="Rice" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
+                                        <label className="custom-control-label" htmlFor="Rice">Rice</label>
                                     </div>
                                 </div>
                                 <div className="form-group col-md-3">
                                     <div className="custom-control custom-radio">
-                                        <input type="radio" className="custom-control-input" id="biryani" value="biryani" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
-                                        <label className="custom-control-label" htmlFor="biryani">Biryani</label>
+                                        <input type="radio" className="custom-control-input" id="Drink" value="Drink" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
+                                        <label className="custom-control-label" htmlFor="Drink">Drink</label>
                                     </div>
                                 </div>
                             </div>
@@ -175,20 +186,20 @@ export default class AddMenuItems extends Component {
                                 </div>
                                 <div className="form-group col-md-3">
                                     <div className="custom-control custom-radio">
-                                        <input type="radio" className="custom-control-input" id="vegetarian" value="vegetarian" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
-                                        <label className="custom-control-label" htmlFor="vegetarian">Vegetarian</label>
+                                        <input type="radio" className="custom-control-input" id="vegetables" value="vegetables" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
+                                        <label className="custom-control-label" htmlFor="vegetables">vegetables</label>
                                     </div>
                                 </div>
                                 <div className="form-group col-md-3">
                                     <div className="custom-control custom-radio">
-                                        <input type="radio" className="custom-control-input" id="bread" value="bread" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
-                                        <label className="custom-control-label" htmlFor="bread">Bread</label>
+                                        <input type="radio" className="custom-control-input" id="Normal Item" value="Normal Item" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
+                                        <label className="custom-control-label" htmlFor="Normal Item">Normal Item</label>
                                     </div>
                                 </div>
                                 <div className="form-group col-md-3">
                                     <div className="custom-control custom-radio">
-                                        <input type="radio" className="custom-control-input" id="specials" value="specials" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
-                                        <label className="custom-control-label" htmlFor="specials">Specials</label>
+                                        <input type="radio" className="custom-control-input" id="Other" value="Other" name="chooseItemType" onChange={(e) => this.setState({ chooseItemType: e.target.value })} />
+                                        <label className="custom-control-label" htmlFor="Other">Other</label>
                                     </div>
                                 </div>
                             </div>

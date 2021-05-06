@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import {signUp, logIn} from '../config/firebase';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css'
+import '../App.scss'
 
 export default class Login extends Component {
     constructor() {

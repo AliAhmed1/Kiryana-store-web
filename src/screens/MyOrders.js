@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { my_order } from '../store/action';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css'
+import '../App.scss'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -70,12 +70,12 @@ class MyOrders extends Component {
         const { myOrder } = this.props;
         // console.log(myOrder)
         if (myOrder) {
-            return Object.keys(myOrder).map((val) => {
+            return Object.keys(myOrder).map((val,key) => {
                 const userUid = myOrder[val].userUid;
                 const orderId = myOrder[val].id;
                 if (myOrder[val].status === "PENDING") {
                     return (
-                        <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={myOrder[val].id}>
+                        <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={key}>
                             <div className="row mb-3">
                                 <div className="col-lg-6 col-md-6 col-12">
                                     <h5 className="">{myOrder[val].userName}</h5>
@@ -85,12 +85,12 @@ class MyOrders extends Component {
                                 </div>
                             </div>
                             {
-                                Object.keys(myOrder[val].itemsList).map((val2) => {
+                                Object.keys(myOrder[val].itemsList).map((val2,key) => {
                                     // console.log(myOrder[val].itemsList[val2])
                                     // console.log(val2)
                                     return (
                                         // myOrder[val].itemList != null    ?
-                                        <div className="row mb-3" key={val2}>
+                                        <div className="row mb-3" key={key}>
                                             <div className="col-lg-2 col-md-3 col-8 offset-2 offset-lg-0 offset-md-0 px-0 mb-3 text-center">
                                                 <img style={{ width: "70px", height: "70px" }} alt="Natural Healthy Food" src={myOrder[val].itemsList[val2].itemImageUrl} />
                                             </div>
@@ -99,7 +99,7 @@ class MyOrders extends Component {
                                                 <p className="mb-1"><small>{myOrder[val].itemsList[val2].itemIngredients}</small></p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-right">
-                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{myOrder[val].itemsList[val2].itemPrice}</b></span>
+                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{myOrder[val].itemsList[val2].itemSalePrice}</b></span>
                                             </div>
                                         </div>
                                         // : <div style={{marginTop : 10}}></div>
@@ -124,12 +124,12 @@ class MyOrders extends Component {
         const { myOrder } = this.props;
         // console.log(myOrder)
         if (myOrder) {
-            return Object.keys(myOrder).map((val) => {
+            return Object.keys(myOrder).map((val,key) => {
                 const userUid = myOrder[val].userUid;
                 const orderId = myOrder[val].id;
                 if (myOrder[val].status === "IN PROGRESS") {
                     return (
-                        <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={myOrder[val].id}>
+                        <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={key}>
                             <div className="row mb-3">
                                 <div className="col-lg-6 col-md-6 col-12">
                                     <h5 className="">{myOrder[val].userName}</h5>
@@ -139,11 +139,11 @@ class MyOrders extends Component {
                                 </div>
                             </div>
                             {
-                                Object.keys(myOrder[val].itemsList).map((val2) => {
+                                Object.keys(myOrder[val].itemsList).map((val2,key) => {
                                     // console.log(myOrder[val].itemsList[val2])
                                     // console.log(val2)
                                     return (
-                                        <div className="row mb-3" key={val2}>
+                                        <div className="row mb-3" key={key}>
                                             <div className="col-lg-2 col-md-3 col-8 offset-2 offset-lg-0 offset-md-0 px-0 mb-3 text-center">
                                                 <img style={{ width: "70px", height: "70px" }} alt="Natural Healthy Food" src={myOrder[val].itemsList[val2].itemImageUrl} />
                                             </div>
@@ -152,7 +152,7 @@ class MyOrders extends Component {
                                                 <p className="mb-1"><small>{myOrder[val].itemsList[val2].itemIngredients}</small></p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-right">
-                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{myOrder[val].itemsList[val2].itemPrice}</b></span>
+                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{myOrder[val].itemsList[val2].itemSalePrice}</b></span>
                                             </div>
                                         </div>
                                     )
@@ -176,10 +176,10 @@ class MyOrders extends Component {
         const { myOrder } = this.props;
         // console.log(myOrder)
         if (myOrder) {
-            return Object.keys(myOrder).map((val) => {
+            return Object.keys(myOrder).map((val,key) => {
                 if (myOrder[val].status === "DELIVERED") {
                     return (
-                        <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={myOrder[val].id}>
+                        <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={key}>
                             <div className="row mb-3">
                                 <div className="col-lg-6 col-md-6 col-12">
                                     <h5 className="">{myOrder[val].userName}</h5>
@@ -190,11 +190,11 @@ class MyOrders extends Component {
                                 </div>
                             </div>
                             {
-                                Object.keys(myOrder[val].itemsList).map((val2) => {
+                                Object.keys(myOrder[val].itemsList).map((val2,key) => {
                                     // console.log(myOrder[val].itemsList[val2])
                                     // console.log(val2)
                                     return (
-                                        <div className="row mb-3" key={val2}>
+                                        <div className="row mb-3" key={key}>
                                             <div className="col-lg-2 col-md-3 col-8 offset-2 offset-lg-0 offset-md-0 px-0 mb-3 text-center">
                                                 <img style={{ width: "70px", height: "70px" }} alt="Natural Healthy Food" src={myOrder[val].itemsList[val2].itemImageUrl} />
                                             </div>
@@ -203,7 +203,7 @@ class MyOrders extends Component {
                                                 <p className="mb-1"><small>{myOrder[val].itemsList[val2].itemIngredients}</small></p>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-12 px-0 text-right">
-                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{myOrder[val].itemsList[val2].itemPrice}</b></span>
+                                                <span style={{ fontSize: "14px" }} className="mx-3"><b>RS.{myOrder[val].itemsList[val2].itemSalePrice}</b></span>
                                             </div>
                                         </div>
                                     )
