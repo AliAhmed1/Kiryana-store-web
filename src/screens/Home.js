@@ -190,21 +190,21 @@ class Home extends Component {
             <div className="row">
               <div className="col-12 col-lg-4 col-md-4 px-5">
                 <span className="round-border my-4">
-                  <img alt="Choose A Restaurant" src={require("../assets/images/how-to-work2.png")} />
+                  <img alt="Choose A Restaurant" height="47px" width="70px" src={require("../assets/images/1-01.png")} />
                 </span>
                 <h3 className="h3 mb-4">Choose A Store</h3>
                 <p className="mb-4">Cras vitae dictum velit. Duis at purus enim. Cras massa massa, maximus sit amet finibus quis, pharetra eu erat.</p>
               </div>
               <div className="col-12 col-lg-4 col-md-4 px-5">
                 <span className="round-border my-4">
-                  <img alt="Choose A Tasty Dish" src={require("../assets/images/how-to-work3.png")} />
+                  <img alt="Choose A Tasty Dish" height="50px" width="70px" src={require("../assets/images/2-01.png")} />
                 </span>
                 <h3 className="h3 mb-4">Choose A Items</h3>
                 <p className="mb-4">Dictum velit. Duis at purus enim. Cras massa massa, maximus sit amet finibus quis, pharetra eu erat.</p>
               </div>
               <div className="col-12 col-lg-4 col-md-4 px-5">
                 <span className="round-border my-4">
-                  <img alt="Pick Up Or Delivery" src={require("../assets/images/how-to-work1.png")} />
+                  <img alt="Pick Up Or Delivery" height="47px" width="70px" src={require("../assets/images/3-01.png")} />
                 </span>
                 <h3 className="h3 mb-4">Pick Up Or Delivery</h3>
                 <p className="mb-4">Purus enim. Cras massa massa, maximus sit amet finibus quis, pharetra eu erat.</p>
@@ -264,7 +264,6 @@ class Home extends Component {
             </div>
           </div>
         </div>
-        <SimpleMap />
         {/* Home Footer */}
         <Footer />
       </div>

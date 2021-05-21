@@ -125,9 +125,9 @@ class Navbar2 extends Component {
                 {/* Brand image */}
                 <Navbar.Brand >
                     <Link className="navbar-brand" to={homeIconLink}>
-                        {/* <img alt="Kalyana store Logo" src={require("../assets/images/logo.png")} /> */}
+                        <img alt="Kalyana store Logo" src={require("../assets/images/logo-03-01.png")} />
                         {/* <img alt="Kiryana store Logo" src={require("../assets/images/Pngtree.png")} height= "23" width = "190" /> */}
-                        <h4>KIRYANA STORE</h4>
+                        {/* <h4>KIRYANA STORE</h4> */}
                     </Link>
                 </Navbar.Brand>
 
