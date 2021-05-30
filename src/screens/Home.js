@@ -6,6 +6,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../App.scss'
 import { connect } from 'react-redux';
 import { store_list } from '../store/action';
+// import firebase from '../config/firebase';
+// import * as firebase from 'firebase';
+// import 'firebase/firestore'
+
+
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -54,6 +59,7 @@ class Home extends Component {
     this.handleSearchBar = this.handleSearchBar.bind(this);
   }
 
+  
   async componentDidMount() {
     this.props.store_list();
   }
@@ -134,6 +140,11 @@ class Home extends Component {
   }
 
   render() {
+  //   firebase.firestore().collection('users').get().then((snapshot) => {
+  //     console.log(snapshot.data())
+        
+  // })
+  
     return (
       <div>
         {/* Home Navbar Section */}
