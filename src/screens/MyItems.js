@@ -98,7 +98,7 @@ class MyItems extends Component {
                                         </div>
                                         <div className="col-lg-10 col-md-9 col-12 pl-lg-0 pl-md-0">
                                             <h1 className="restaurant-title">{userDetails.userName}</h1>
-                                            <p className="restaurant-text">{userDetails.typeOfFood.join(', ')}</p>
+                                            {/* <p className="restaurant-text">{userDetails.typeOfFood.join(', ')}</p> */}
                                         </div>
                                     </div> : null
                                 }

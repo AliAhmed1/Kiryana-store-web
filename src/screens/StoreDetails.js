@@ -306,7 +306,7 @@ class StoreDetails extends Component {
                                     </div>
                                     <div className="col-lg-10 col-md-9 col-12 pl-lg-0 pl-md-0">
                                         <h1 className="restaurant-title">{resDetails.userName}</h1>
-                                        <p className="restaurant-text">{resDetails.typeOfFood.join(', ')}</p>
+                                        {/* <p className="restaurant-text">{resDetails.typeOfFood.join(', ')}</p> */}
                                     </div>
                                 </div>
                             </div>

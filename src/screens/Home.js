@@ -277,7 +277,7 @@ class Home extends Component {
           </div>
         </div>
         {/* Home Footer */}
-        <SimpleMap />
+        {/* <SimpleMap /> */}
         <Footer />
       </div>
     );
