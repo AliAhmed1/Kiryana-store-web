@@ -231,11 +231,11 @@ class Stores extends Component {
         const { renderStoreList, renderCategorizedStores, renderSearchStores, defaultSearchValue } = this.state;
         return (
             <div>
-                <div className="container-fluid stores-cont1">
+                <div className="container-fluid stores-cont5">
                     <div className="">
                         {/* <Navbar history={this.props.history} /> */}
                         <Navbar2 history={this.props.history} />
-                        <div className="container px-0 stores-cont1-text">
+                        <div className="container px-0 stores-cont5-text">
                             <div className="container">
                                 <div className="row justify-content-center">
                                     <div className="col-lg-6 col-md-6 col-sm-12 mb-3">

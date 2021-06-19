@@ -283,7 +283,7 @@ export default class RegisterStore extends Component {
                 userProfileImage: userProfileImage,
                 isRestaurant: true,
                 propsHistory: this.props.history,
-                typeOfFood: ['Juice', 'Beef', 'Cheese']
+                // typeOfFood: ['Juice', 'Beef', 'Cheese']
             }
             try {
                 const signUpReturn = await signUp(userDetails)

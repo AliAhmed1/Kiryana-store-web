@@ -51,10 +51,10 @@ class Navbar extends Component {
     return (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <span className="nav-link active text-uppercase mr-2"><Link to="/stores">Stores</Link></span>
+          <span className="nav-link active text mr-2"><Link to="">Stores</Link></span>
         </li>
         <li className="nav-item">
-          <span className="nav-link text-uppercase mr-2"><Link to="/login">Login / Register</Link></span>
+          <span className="nav-link text mr-2"><Link to="/login">Login / Register</Link></span>
         </li>
         <li className="nav-item">
           <Link to="/register-store">
@@ -71,19 +71,19 @@ class Navbar extends Component {
       return (
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <span className="nav-link active text-uppercase mr-2"><Link to="/add-menu-items">Add Foods</Link></span>
+            <span className="nav-link active text mr-2"><Link to="/add-menu-items">Add Foods</Link></span>
           </li>
           <li className="nav-item">
-            <span className="nav-link active text-uppercase mr-2"><Link to="/my-foods">My Foods</Link></span>
+            <span className="nav-link active text mr-2"><Link to="/my-foods">My Foods</Link></span>
           </li>
           <li className="nav-item">
-            <span className="nav-link active text-uppercase mr-2"><Link to="/order-requests">Order Requests</Link></span>
+            <span className="nav-link active text mr-2"><Link to="/order-requests">Order Requests</Link></span>
           </li>
           <li className="nav-item">
-            <span className="nav-link active text-uppercase mr-2">{updated_user.userName}</span>
+            <span className="nav-link active text mr-2">{updated_user.userName}</span>
           </li>
           <li className="nav-item">
-            <button type="button" className="btn btn-warning btn-sm text-uppercase mr-2 mr-1 px-3" onClick={() => this.handleLogOutBtn()}>Log Out</button>
+            <button type="button" className="btn btn-warning btn-sm text mr-2 mr-1 px-3" onClick={() => this.handleLogOutBtn()}>Log Out</button>
           </li>
         </ul>
       )
@@ -91,16 +91,16 @@ class Navbar extends Component {
       return (
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <span className="nav-link active text-uppercase mr-2"><Link to="/stores">Stores</Link></span>
+            <span className="nav-link active text mr-2"><Link to="/stores">Stores</Link></span>
           </li>
           <li className="nav-item">
-            <span className="nav-link active text-uppercase mr-2"><Link to="/my-orders">My Orders</Link></span>
+            <span className="nav-link active text mr-2"><Link to="/my-orders">My Orders</Link></span>
           </li>
           <li className="nav-item">
-            <span className="nav-link active text-uppercase mr-2">{updated_user.userName}</span>
+            <span className="nav-link active text mr-2">{updated_user.userName}</span>
           </li>
           <li className="nav-item">
-            <button type="button" className="btn btn-warning btn-sm text-uppercase mr-2 mr-1 px-3" onClick={() => this.handleLogOutBtn()}>Log Out</button>
+            <button type="button" className="btn btn-warning btn-sm text mr-2 mr-1 px-3" onClick={() => this.handleLogOutBtn()}>Log Out</button>
           </li>
         </ul>
       )

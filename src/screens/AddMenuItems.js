@@ -115,7 +115,7 @@ export default class AddMenuItems extends Component {
                         {/* <Navbar history={this.props.history} /> */}
                         <Navbar2 history={this.props.history} />
                         <div className="container register-cont1-text">
-                            <h1 className="text-uppercase text-white text-center mb-4"><strong>Add Your Best Store Items</strong></h1>
+                            <h2 className="text text-white text-center mb-4"><strong>Add Your Best Store Items</strong></h2>
                         </div>
                     </div>
                 </div>

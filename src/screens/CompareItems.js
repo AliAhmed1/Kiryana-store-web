@@ -137,7 +137,11 @@ class CompareItems extends Component {
                             <div className="container">
                                 <div className="row justify-content-center">
                                     <div className="col-lg-6 col-md-6 col-sm-12 mb-3">
+<<<<<<< HEAD
+                                        <h2 className="h2 text text-center mb-4"><strong>Compare store item prices<br />search for the lowest price product</strong></h2>
+=======
                                         <h2 className="h2 text-uppercase text-white text-center mb-4"><strong>Compare store item prices<br />search for the lowest price product</strong></h2>
+>>>>>>> master
 
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
