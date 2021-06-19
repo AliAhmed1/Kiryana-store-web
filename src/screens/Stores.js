@@ -136,7 +136,7 @@ class Stores extends Component {
                                     <small>(1) Review</small>
                                 </p>
                                 <h5 className="">{storeList[val].userName}</h5>
-                                <p className=""><small>Type of Items: <span>{storeList[val].typeOfFood.join(', ')}</span></small></p>
+                                {/* <p className=""><small>Type of Items: <span>{storeList[val].typeOfFood.join(', ')}</span></small></p> */}
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-12 py-4 px-0">
                                 <span style={{ display: 'inline-block', textAlign: 'center', borderRadius: '3px', border: '1px solid #dddddd', padding: '6px 7px 0px 7px', marginRight: '16px' }} ><FontAwesomeIcon icon="heart" className="text-success" /></span>
@@ -176,7 +176,7 @@ class Stores extends Component {
                                                 <small>(1) Review</small>
                                             </p>
                                             <h5 className="">{storeList[val].userName}</h5>
-                                            <p className=""><small>Type of Items: <span>{storeList[val].typeOfFood.join(', ')}</span></small></p>
+                                            {/* <p className=""><small>Type of Items: <span>{storeList[val].typeOfFood.join(', ')}</span></small></p> */}
                                         </div>
                                         <div className="col-lg-3 col-md-3 col-sm-12 py-4 px-0">
                                             <span style={{ display: 'inline-block', textAlign: 'center', borderRadius: '3px', border: '1px solid #dddddd', padding: '6px 7px 0px 7px', marginRight: '16px' }} ><FontAwesomeIcon icon="heart" className="text-success" /></span>

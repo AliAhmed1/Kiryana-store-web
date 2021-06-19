@@ -23,9 +23,10 @@ class SimpleMap extends Component {
   static defaultProps = {
     center: {
       lat: 59.95,
-      lng: 30.33
+      lng: 30.33,
     },
-    zoom: 11
+    zoom: 11,
+    mapId : '509cf9f4ca660a97'
   };
 
 
@@ -34,7 +35,7 @@ class SimpleMap extends Component {
       // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyDP3KenbRYn_M115xT0zlQcjKBNeIrkk3s" }}
+          bootstrapURLKeys={{ key: "AIzaSyCgPnr32NjwYjZ21AyZEH7sBgWtXghncfk" }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
@@ -88,7 +89,7 @@ class Home extends Component {
             <div className="container res-shadow res-border">
               <div className="row p-3">
                 <div className="col-lg-4 col-md-4 col-sm-12 text-center border p-2">
-                  <img style={{ width: "100%", height: "100%" }} alt="store image" src={storeList[val].userProfileImageUrl} />
+                  <img style={{ width: "100%", height: "100%" }} alt="store" src={storeList[val].userProfileImageUrl} />
                 </div>
                 <div style={{ position: "relative" }} className="col-lg-8 col-md-8 col-sm-12 py-2">
                   <h5 className="mb-1">{storeList[val].userName}</h5>
@@ -276,6 +277,7 @@ class Home extends Component {
           </div>
         </div>
         {/* Home Footer */}
+        <SimpleMap />
         <Footer />
       </div>
     );
