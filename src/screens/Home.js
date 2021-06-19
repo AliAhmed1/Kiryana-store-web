@@ -6,6 +6,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../App.scss'
 import { connect } from 'react-redux';
 import { store_list } from '../store/action';
+// import firebase from '../config/firebase';
+// import * as firebase from 'firebase';
+// import 'firebase/firestore'
+
+
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -54,6 +59,7 @@ class Home extends Component {
     this.handleSearchBar = this.handleSearchBar.bind(this);
   }
 
+  
   async componentDidMount() {
     this.props.store_list();
   }
@@ -86,7 +92,7 @@ class Home extends Component {
                 </div>
                 <div style={{ position: "relative" }} className="col-lg-8 col-md-8 col-sm-12 py-2">
                   <h5 className="mb-1">{storeList[val].userName}</h5>
-                  <p className="mb-2"><small>{storeList[val].typeOfFood.join(', ')}</small></p>
+                  {/* <p className="mb-2"><small>{storeList[val].typeOfFood.join(', ')}</small></p> */}
                   <p>
                     <small className="">
                       <FontAwesomeIcon icon="star" className="rating mr-1" />
@@ -134,6 +140,11 @@ class Home extends Component {
   }
 
   render() {
+  //   firebase.firestore().collection('users').get().then((snapshot) => {
+  //     console.log(snapshot.data())
+        
+  // })
+  
     return (
       <div>
         {/* Home Navbar Section */}
@@ -143,12 +154,12 @@ class Home extends Component {
             <Navbar2 history={this.props.history} />
 
             <div className="container home-cont1-text">
-              <h1 className="h1 text-uppercase text-white text-center mb-4"><strong>Best Grocery stores<br /> Easy And Safe</strong></h1>
+              <h2 className="h1 text text-white text-center mb-4"><strong>Your Best Source Of Groceries<br/> Easy And Safe</strong></h2>
               <div className="container">
                 <div className="row justify-content-center">
                   <div className="col-lg-6 col-md-6 col-sm-12 mb-3">
                     <span className="input-group-text py-0" id="inputGroup-sizing-sm"><FontAwesomeIcon icon="search" />
-                      <input type="text" className="form-control text-uppercase" id="searchText" placeholder="Store Name" onChange={(e) => { this.setState({ homeSearchBarText: e.target.value }) }} />
+                      <input type="text" className="form-control text" id="searchText" placeholder="Store Name" onChange={(e) => { this.setState({ homeSearchBarText: e.target.value }) }} />
                     </span>
                   </div>
                   <div className="col-lg-2 col-md-2 col-sm-12">
@@ -169,13 +180,13 @@ class Home extends Component {
         <div className="container-fluid py-2 bg-warning">
           <div className="row">
             <div className="col-lg-4 col-md-4 col-sm-12">
-              <p className="my-3 text-lg-right text-md-right text-center text-white"><b className="mr-2 h5">18</b>Grocery Stores</p>
+              <p className="my-3 text-lg-right text-md-right text-center text-white"><b className="mr-2 h5">4</b>Grocery Stores</p>
             </div>
             <div className="col-lg-4 col-md-4 col-sm-12">
-              <p className="my-3 text-center text-white"><b className="mr-2 h5">9</b>People Served</p>
+              <p className="my-3 text-center text-white"><b className="mr-2 h5">10</b>Delivered to</p>
             </div>
             <div className="col-lg-4 col-md-4 col-sm-12">
-              <p className="my-3 text-lg-left text-md-left text-center text-white"><b className="mr-2 h5">44</b>Registered Users</p>
+              <p className="my-3 text-lg-left text-md-left text-center text-white"><b className="mr-2 h5">20</b>Registered Users</p>
             </div>
           </div>
         </div>
@@ -184,30 +195,30 @@ class Home extends Component {
         <div className="container-fluid text-center py-4">
           <div className="py-4">
             <h2 className="h2 text-uppercase">How It Works</h2>
-            <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+            <p>It is as simple as:</p>
           </div>
           <div className="container">
             <div className="row">
               <div className="col-12 col-lg-4 col-md-4 px-5">
                 <span className="round-border my-4">
-                  <img alt="Choose A Restaurant" height="47px" width="70px" src={require("../assets/images/1-01.png")} />
+                  <img alt="Choose A Restaurant" height="47px" width="60px" src={require("../assets/images/how-to-work2.png")} />
                 </span>
                 <h3 className="h3 mb-4">Choose A Store</h3>
-                <p className="mb-4">Cras vitae dictum velit. Duis at purus enim. Cras massa massa, maximus sit amet finibus quis, pharetra eu erat.</p>
+                <p className="mb-4">Choose the best priced store by comparing prices.</p>
               </div>
               <div className="col-12 col-lg-4 col-md-4 px-5">
                 <span className="round-border my-4">
-                  <img alt="Choose A Tasty Dish" height="50px" width="70px" src={require("../assets/images/2-01.png")} />
+                  <img alt="Choose A Tasty Dish" height="55px" width="60px" src={require("../assets/images/pngkey.png")} />
                 </span>
-                <h3 className="h3 mb-4">Choose A Items</h3>
-                <p className="mb-4">Dictum velit. Duis at purus enim. Cras massa massa, maximus sit amet finibus quis, pharetra eu erat.</p>
+                <h3 className="h3 mb-4">Select Items</h3>
+                <p className="mb-4">Select the items you want to buy.</p>
               </div>
               <div className="col-12 col-lg-4 col-md-4 px-5">
                 <span className="round-border my-4">
-                  <img alt="Pick Up Or Delivery" height="47px" width="70px" src={require("../assets/images/3-01.png")} />
+                  <img alt="Pick Up Or Delivery" height="47px" width="70px" src={require("../assets/images/how-to-work1.png")} />
                 </span>
-                <h3 className="h3 mb-4">Pick Up Or Delivery</h3>
-                <p className="mb-4">Purus enim. Cras massa massa, maximus sit amet finibus quis, pharetra eu erat.</p>
+                <h3 className="h3 mb-4">We Deliver</h3>
+                <p className="mb-4">And we deliver it to you.</p>
               </div>
             </div>
           </div>
@@ -215,8 +226,8 @@ class Home extends Component {
 
         {/* Home Order now section */}
         <div className="container-fluid text-center py-5 home-cont3">
-          <p className="h1 text-uppercase text-white mt-5 mb-3">Just Order And We Will Deliver You</p>
-          <p className="text-white mb-3">Pellentesque eget justo eget nibh luctus semper at ut tellus.</p>
+          <p className="h1 text-uppercase text-white mt-5 mb-3">Order Now And We Deliver You.</p>
+          <p className="text-white mb-3">Order Groceries now from us and we deliver them at the ease of your home.</p>
           <button type="button" className="btn btn-warning text-uppercase mb-5" onClick={() => this.handleOrderNowBtn()}><b>Order Now</b></button>
         </div>
 
@@ -224,7 +235,7 @@ class Home extends Component {
         <div className="container-fluid py-5">
           <div className="py-4">
             <h2 className="h2 text-uppercase text-center">Featured Stores</h2>
-            <p className="text-center">Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+            <p className="text-center">Our most popular stores.</p>
           </div>
 
 
@@ -236,7 +247,7 @@ class Home extends Component {
 
 
               {this._renderStoreList()}
-              {/* <div className="container res-shadow res-border">
+               {/* <div className="container res-shadow res-border">
                   <div className="row p-3">
                     <div className="col-lg-4 col-md-4 col-sm-12 text-center border p-2">
                       <img style={{ width: "70%" }} alt="Natural Healthy Food" src={require("../assets/images/listing-logo03.png")} />
@@ -257,7 +268,7 @@ class Home extends Component {
                       <span style={{ position: "absolute", top: 5, right: 5 }}><FontAwesomeIcon icon="heart" className="text-success mr-1" /></span>
                     </div>
                   </div>
-                </div> */}
+                </div>  */}
 
 
 

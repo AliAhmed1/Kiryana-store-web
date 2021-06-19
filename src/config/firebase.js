@@ -92,6 +92,7 @@ function logIn(userLoginDetails) {
         const { userLoginEmail, userLoginPassword } = userLoginDetails;
         firebase.auth().signInWithEmailAndPassword(userLoginEmail, userLoginPassword).then((success) => {
             db.collection('users').doc(success.user.uid).get().then((snapshot) => {
+                console.log(snapshot.data())
                 console.log("snapshot.data =>>", snapshot.data().isRestaurant);
                 if(snapshot.data().isRestaurant){
                     userLoginDetails.propsHistory.push("/order-requests");

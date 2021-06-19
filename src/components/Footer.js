@@ -11,7 +11,7 @@ class Footer extends Component {
                     <div className="row">
 
                         {/* Popular Cities Section */}
-                        <div className="col-lg-3 col-md-3 col-sm-12">
+                        <div className="col-lg-4 col-md-3 col-sm-12">
                             <div className="footer-head-div">
                                 <h5 className="text-white">Popular Cities</h5>
                             </div>
@@ -27,13 +27,13 @@ class Footer extends Component {
                         </div>
 
                         {/* Popular Cuisnies Section */}                        
-                        <div className="col-lg-3 col-md-3 col-sm-12">
+                        {/* <div className="col-lg-3 col-md-3 col-sm-12">
                             <div className="footer-head-div">
                                 <h5 className="text-white">Popular Items</h5>
                             </div>
                             <div className="footer-list-div">
                                 <ul>
-                                    <li><a href="#">Apple Juice</a></li>
+                                    <li><a href="#">Milk</a></li>
                                     <li><a href="#">Salt</a></li>
                                     <li><a href="#">Chicken Frozen</a></li>
                                     <li><a href="#">bread</a></li>
@@ -41,10 +41,10 @@ class Footer extends Component {
                                     <li><a href="#">Milk</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* Popular Cuisnies Section */}
-                        <div className="col-lg-3 col-md-3 col-sm-12">
+                        <div className="col-lg-4 col-md-3 col-sm-12">
                             <div className="footer-head-div">
                                 <h5 className="text-white">Menu</h5>
                             </div>
@@ -59,9 +59,9 @@ class Footer extends Component {
                         </div>
                         
                         {/* Contact Section */}                        
-                        <div className="col-lg-3 col-md-3 col-sm-12">
+                        <div className="col-lg-4 col-md-3 col-sm-12">
                             <div className="footer-head-div">
-                                <h5 className="text-white">Connect</h5>
+                                <h5 className="text-white">Contact Us</h5>
                             </div>
                             <div className="footer-list-div">
                                 <ul className="social-media mb-3">
@@ -120,7 +120,7 @@ class Footer extends Component {
                                         <span className="bg-warning p-2 rounded mr-3">
                                             <FontAwesomeIcon icon="phone" className="text-white" />
                                         </span>
-                                        <span>+1 333 888 6666</span>
+                                        <span>+92 333 0379481</span>
                                     </li>
                                     <li className="pb-3">
                                         <span className="bg-warning p-2 rounded mr-3">
@@ -137,7 +137,7 @@ class Footer extends Component {
                 {/* Footer Copyright Section */}
                 <div className="container">
                     <div className="col-12 footer-copyright">
-                        <p>© 2021 Copyright All Rights Reserved. Powered By <span style={{ color: "#7d1d96", fontWeight: 700 }}></span></p>
+                        <p> <span style={{ color: "#7d1d96", fontWeight: 700 }}></span></p>
                     </div>
                 </div>
             </div>

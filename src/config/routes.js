@@ -12,6 +12,7 @@ import OrderRequests from '../screens/OrderRequests';
 import MyOrders from '../screens/MyOrders';
 import MyItems from '../screens/MyItems';
 import Dashboard from '../screens/Dashboard/Dashboard'
+import CompareItems from '../screens/CompareItems'
 
 
 
@@ -31,6 +32,7 @@ const MyRoutes = () => (
             <Route path='/my-orders' component={MyOrders}></Route>
             <Route path='/my-items' component={MyItems}></Route>
             <Route path='/dashboard' component={Dashboard}></Route>
+            <Route path='/compare-items' component={CompareItems}></Route>
         </div>
     </Router>
 )
