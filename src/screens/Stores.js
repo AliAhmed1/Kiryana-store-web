@@ -27,15 +27,15 @@ class Stores extends Component {
     async componentDidMount() {
         this.props.store_list();
         const { state } = this.props.location
-            if (state) {
-                this.setState({
-                    defaultSearchValue: state,
-                })
-                this.handleSearchBar(state)
-            }
+        if (state) {
+            this.setState({
+                defaultSearchValue: state,
+            })
+            this.handleSearchBar(state)
+        }
     }
 
-    
+
 
 
     handleCategoriesCheckbox(event) {
@@ -146,6 +146,13 @@ class Stores extends Component {
                     </div>
                 )
             })
+        }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            )
         }
     }
 

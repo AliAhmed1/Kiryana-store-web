@@ -62,7 +62,9 @@ class CompareItems extends Component {
         if (compareItemsList) {
             Object.keys(compareItemsList).map((val) => { });
             const result = compareItemsList.filter((val) => {
-                return val.itemIngredients.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1;
+                return val.itemIngredients.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1 ||
+                    val.itemTitle.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1
+
             })
             // console.log(result)
             if (searchText.length > 0) {
@@ -92,7 +94,7 @@ class CompareItems extends Component {
         const { searchCompareItems, renderCompareItems } = this.state;
         if (searchCompareItems) {
             let obj = [...searchCompareItems]
-            obj.sort((a, b) => a.itemSalePrice > b.itemSalePrice ? 1 : -1)
+            obj.sort((a, b) => a.itemSalePrice - b.itemSalePrice)
             return Object.keys(obj).map((val) => {
                 return (
                     <div className="border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={obj[val].id}>
@@ -114,10 +116,10 @@ class CompareItems extends Component {
                 )
             })
         }
-        else{
-            return(
-                <div className="text-center my-4 py-4">
-                    <h6>No record Found</h6>
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                    <span className="sr-only">Loading...</span>
                 </div>
             )
         }
@@ -153,7 +155,7 @@ class CompareItems extends Component {
                 </div>
                 <div className="container my-4 px-2">
                     <h4 className="my-4 text-center px-lg-0 px-md-0">Compare Result</h4>
-                    
+
                     <div className="px-0">
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-4 px-0">
                             {renderCompareItems && this._renderSearchCompareItems()}

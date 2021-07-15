@@ -126,7 +126,9 @@ class Dashboard extends React.Component {
     }
     else {
       return (
-        <div className="card-body"><h4>No Order Found</h4></div>
+        <div className="spinner spinner-border text-warning " role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
       )
     }
   }
@@ -186,7 +188,6 @@ class Dashboard extends React.Component {
   render() {
     const { userDetails } = this.state;
     return (
-
       <div>
         <div className="container-fluid res-details-cont1">
           <div className="">

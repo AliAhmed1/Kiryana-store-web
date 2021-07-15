@@ -117,13 +117,13 @@ class Footer extends Component {
                                 </ul>
                                 <ul>
                                     <li className="pb-3">
-                                        <span className="bg-warning p-2 rounded mr-3">
+                                        <span className="bg-warnin p-2 rounded mr-3">
                                             <FontAwesomeIcon icon="phone" className="text-white" />
                                         </span>
                                         <span>+92 333 0379481</span>
                                     </li>
                                     <li className="pb-3">
-                                        <span className="bg-warning p-2 rounded mr-3">
+                                        <span className="bg-warnin p-2 rounded mr-3">
                                             <FontAwesomeIcon icon="envelope" className="text-white" />
                                         </span>
                                         <span>info@kiryanastore.com</span>

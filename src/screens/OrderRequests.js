@@ -78,10 +78,6 @@ class OrderRequests extends Component {
         }
     }
 
-    componentDidUpdate() {
-       
-    }
-
     handlecheck() {
         if (this.props.orderRequest) {
             for (var i in this.props.orderRequest) {
@@ -109,7 +105,7 @@ class OrderRequests extends Component {
                 console.log(this.props.orderRequest[i].status)
             }
             console.log(this.checkPending, this.checkProgress, this.checkDelivered)
-           
+
 
         }
     }
@@ -145,6 +141,7 @@ class OrderRequests extends Component {
 
     _renderPendingOrderRequest() {
         const { orderRequest } = this.props;
+        const { userDetails } = this.state;
         // console.log(orderRequest)
         if (orderRequest) {
             return Object.keys(orderRequest).map((val) => {
@@ -185,6 +182,8 @@ class OrderRequests extends Component {
                             <div className="row mb-3 mb-md-0 mb-lg-0">
                                 <div className="col-lg-6 col-md-6 col-12 order-lg-first order-md-first order-last ">
                                     <button type="button" onClick={() => this.handleSendToInProgressBtn(userUid, orderId)} className="btn btn-warning btn-sm text-uppercase px-3"><b>Send To In Progress</b></button>
+                                    <button className="text-decoration-none btn btn-warning text-uppercase btn-sm mx-1 px-3" onClick={() => { window.open(orderRequest[val].userMapLink, "_blank") }}><b>User Location</b></button>
+
                                 </div>
                                 <div className="col-lg-6 col-md-6 col-12 text-lg-right text-md-right">
                                     <p><b className="mr-4">Total Price:</b><span style={{ fontSize: '1.1rem' }}>RS.{orderRequest[val].totalPrice}</span></p>
@@ -199,10 +198,18 @@ class OrderRequests extends Component {
 
             })
         }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            )
+        }
     }
 
     _renderInProgressOrderRequest() {
         const { orderRequest } = this.props;
+        const { userDetails } = this.state;
         // console.log(orderRequest)
         if (orderRequest) {
             return Object.keys(orderRequest).map((val) => {
@@ -244,6 +251,7 @@ class OrderRequests extends Component {
                             <div className="row mb-3 mb-md-0 mb-lg-0">
                                 <div className="col-lg-6 col-md-6 col-12 order-lg-first order-md-first order-last ">
                                     <button type="button" onClick={() => { this.handleSendToDeliveredBtn(userUid, orderId) }} className="btn btn-warning btn-sm text-uppercase px-3"><b>Send To Delivered</b></button>
+                                    <button className="text-decoration-none btn btn-warning text-uppercase btn-sm m-1 px-4" onClick={() => { window.open(orderRequest[val].userMapLink, "_blank") }}><b>User Location</b></button>
                                 </div>
                                 <div className="col-lg-6 col-md-6 col-12 text-lg-right text-md-right">
                                     <p><b className="mr-4">Total Price:</b><span style={{ fontSize: '1.1rem' }}>RS.{orderRequest[val].totalPrice}</span></p>
@@ -258,8 +266,13 @@ class OrderRequests extends Component {
 
             })
         }
-
-
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            )
+        }
     }
 
     _renderDeliveredOrderRequest() {
@@ -317,6 +330,13 @@ class OrderRequests extends Component {
                 // }
 
             })
+        }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            )
         }
 
 

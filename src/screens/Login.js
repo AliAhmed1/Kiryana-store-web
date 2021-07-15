@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 // import Navbar from '../components/Navbar';
 import Navbar2 from '../components/Navbar2';
 import Footer from '../components/Footer';
-import {signUp, logIn} from '../config/firebase';
+import { signUp, logIn } from '../config/firebase';
+import Swal from 'sweetalert2'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.scss'
@@ -24,6 +25,7 @@ export default class Login extends Component {
             userAge: "",
             userProfileImage: null,
             userTNC: false,
+            userMapLink: "",
             showError: false,
             userLoginEmail: "",
             userLoginPassword: "",
@@ -38,6 +40,7 @@ export default class Login extends Component {
         this.handleUserAge = this.handleUserAge.bind(this);
         this.handleCreateAccountBtn = this.handleCreateAccountBtn.bind(this);
         this.handleUserProfileImage = this.handleUserProfileImage.bind(this);
+        this.handleUserMapLink = this.handleUserMapLink.bind(this);
         this.handleUserTNC = this.handleUserTNC.bind(this);
         this.handleUserGender = this.handleUserGender.bind(this);
         this.handleLoginNowBtn = this.handleLoginNowBtn.bind(this);
@@ -201,6 +204,24 @@ export default class Login extends Component {
         }
     }
 
+    handleUserMapLink(e) {
+        const userMapLink = e
+        // const userMapFormate = /([a-z0-9-]+\:\/+)([^\/\s]+)([a-z0-9\-@\^=%&;\/~\+]*)[\?]?([^ \#\r\n]*)#?([^ \#\r\n]*)/mig
+        if (userMapLink.length > 10) {
+            this.setState({
+                showError: false,
+                registerFormError: "",
+                userMapLink: userMapLink,
+            });
+        } else {
+            this.setState({
+                showError: true,
+                registerFormError: "Please enter a valid URL Link.",
+                userMapLink: "",
+            });
+        }
+    }
+
     handleUserTNC() {
         const { userTNC } = this.state
         if (!userTNC) {
@@ -219,7 +240,7 @@ export default class Login extends Component {
     }
 
     async handleCreateAccountBtn() {
-        const { userName, userEmail, userPassword, userConfirmPassword, userCity, userCountry, userGender, userAge, userProfileImage, userTNC } = this.state;
+        const { userName, userEmail, userPassword, userConfirmPassword, userCity, userCountry, userGender, userAge, userProfileImage, userTNC, userMapLink } = this.state;
 
         // const whiteSpaces = /^(?!\s*$)[-a-zA-Z0-9_:,.' ']{1,100}$/;
         const userNameFormate = /^([A-Za-z.\s_-]).{5,}$/;
@@ -227,7 +248,7 @@ export default class Login extends Component {
         const userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
         const userCountryFormate = /^([A-Za-z.\s_-]).{5,}$/;
         const userCityFormate = /^([A-Za-z.\s_-]).{5,}$/;
-
+        // const userMapFormate = /([a-z0-9-]+\:\/+)([^\/\s]+)([a-z0-9\-@\^=%&;\/~\+]*)[\?]?([^ \#\r\n]*)#?([^ \#\r\n]*)/mig
         if (!userName.match(userNameFormate)) {
             this.setState({
                 showError: true,
@@ -276,7 +297,14 @@ export default class Login extends Component {
                 userProfileImageLable: "Choose image...",
                 userProfileImage: "",
             });
-        } else if (!userTNC) {
+        } else if (userMapLink.length < 10) {
+            this.setState({
+                showError: true,
+                registerFormError: "Please enter a valid URL.",
+                userMapLink: "",
+            });
+        }
+        else if (!userTNC) {
             this.setState({
                 userTNC: false,
                 showError: true,
@@ -296,17 +324,28 @@ export default class Login extends Component {
                 isRestaurant: false,
                 propsHistory: this.props.history,
                 typeOfFood: [],
+                userMapLink: userMapLink,
             }
             try {
                 const signUpReturn = await signUp(userDetails)
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Sign Up Successful',
+                    type: 'success',
+                })
                 // console.log(signUpReturn)
-            }catch(error){
-                console.log("Error in Sign up => ",error)
+            } catch (error) {
+                console.log("Error in Sign up => ", error)
+                Swal.fire({
+                    title: 'Error',
+                    text: error,
+                    type: 'error',
+                })
             }
         }
     }
 
-    async handleLoginNowBtn(){
+    async handleLoginNowBtn() {
         const { userLoginEmail, userLoginPassword } = this.state;
         const userLoginDetails = {
             userLoginEmail: userLoginEmail,
@@ -315,9 +354,19 @@ export default class Login extends Component {
         }
         try {
             const LoginReturn = await logIn(userLoginDetails)
+            Swal.fire({
+                title: 'Success',
+                text: 'Successfully Logged In',
+                type: 'success',
+            })
             // console.log(LoginReturn)
-        }catch(error){
-            console.log("Error in Login => ",error)
+        } catch (error) {
+            console.log("Error in Login => ", error)
+            Swal.fire({
+                title: 'Error',
+                text: error,
+                type: 'error',
+            })
         }
     }
 
@@ -389,6 +438,10 @@ export default class Login extends Component {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="form-group col-md-12 mx-0 px-0">
+                                    <label htmlFor="userEmail">Map Link</label>
+                                    <input type="text" className="form-control" id="userMapLink" placeholder="Map Link" onKeyUp={(e) => this.handleUserMapLink(e.target.value)} />
+                                </div>
                                 <div className="form-group">
                                     <div className="custom-control custom-checkbox">
                                         <input type="checkbox" className="custom-control-input" id="userTNC" defaultChecked={userTNC} onChange={this.handleUserTNC} />
@@ -405,11 +458,11 @@ export default class Login extends Component {
                             <form action="javascript:void(0)">
                                 <div className="form-group">
                                     <label htmlFor="userLoginEmail">Email</label>
-                                    <input type="email" className="form-control" id="userLoginEmail" placeholder="Email" onChange={(e) => this.setState({userLoginEmail: e.target.value})} />
+                                    <input type="email" className="form-control" id="userLoginEmail" placeholder="Email" onChange={(e) => this.setState({ userLoginEmail: e.target.value })} />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="userLoginPassword">Password</label>
-                                    <input type="password" className="form-control" id="userLoginPassword" placeholder="Password" onChange={(e) => this.setState({userLoginPassword: e.target.value})} />
+                                    <input type="password" className="form-control" id="userLoginPassword" placeholder="Password" onChange={(e) => this.setState({ userLoginPassword: e.target.value })} />
                                 </div>
                                 <button type="submit" className="btn btn-warning text-uppercase mb-3" onClick={this.handleLoginNowBtn}><b>Login Now</b></button>
                             </form>

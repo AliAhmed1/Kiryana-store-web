@@ -61,9 +61,9 @@ class MyItems extends Component {
                     <div className="container pt-4 pb-2 border-bottom" key={val}>
                         <div className="row">
                             <div className="col-lg-2 col-md-3 col-8 offset-2 offset-lg-0 offset-md-0 px-0 mb-3 text-center">
-                                {myItems[val].itemImageUrl  ? <img style={{ width: "70px", height: "70px" }} alt="items" src={myItems[val].itemImageUrl} />
-                                :
-                                <img style={{ width: "70px", height: "70px" }} alt="items" src={require('../assets/images/unknown.jpg')} />}
+                                {myItems[val].itemImageUrl ? <img style={{ width: "70px", height: "70px" }} alt="items" src={myItems[val].itemImageUrl} />
+                                    :
+                                    <img style={{ width: "70px", height: "70px" }} alt="items" src={require('../assets/images/unknown.jpg')} />}
                             </div>
                             <div className="col-lg-7 col-md-6 col-sm-12 px-0">
                                 <h6 className="">{myItems[val].itemTitle}</h6>
@@ -77,6 +77,13 @@ class MyItems extends Component {
                     </div>
                 )
             })
+        }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            )
         }
     }
 

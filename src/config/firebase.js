@@ -19,7 +19,7 @@ var firebaseConfig = {
     messagingSenderId: "59433868327",
     appId: "1:59433868327:web:e96b23ce612fb7fb340202",
     measurementId: "G-1922BNNB80"
-  };
+};
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -28,7 +28,7 @@ const db = firebase.firestore();
 
 function signUp(userDetails) {
     return new Promise((resolve, reject) => {
-        const { userName, userEmail, userPassword, userCity, userCountry, userGender, userAge, userProfileImage, isRestaurant, typeOfFood } = userDetails;
+        const { userName, userEmail, userPassword, userCity, userCountry, userGender, userAge, userProfileImage, userMapLink, isRestaurant, typeOfFood } = userDetails;
         firebase.auth().createUserWithEmailAndPassword(userDetails.userEmail, userDetails.userPassword).then((success) => {
             let user = firebase.auth().currentUser;
             var uid;
@@ -50,14 +50,15 @@ function signUp(userDetails) {
                         userUid: uid,
                         isRestaurant: isRestaurant,
                         userProfileImageUrl: userProfileImageUrl,
+                        userMapLink: userMapLink,
                         typeOfFood: typeOfFood,
                     }
                     db.collection("users").doc(uid).set(userDetailsForDb).then((docRef) => {
                         // console.log("Document written with ID: ", docRef.id);
-                        if(userDetailsForDb.isRestaurant){
+                        if (userDetailsForDb.isRestaurant) {
                             userDetails.propsHistory.push("/order-requests");
                             resolve(userDetailsForDb)
-                        }else{
+                        } else {
                             userDetails.propsHistory.push("/");
                             resolve(userDetailsForDb)
                         }
@@ -94,13 +95,13 @@ function logIn(userLoginDetails) {
             db.collection('users').doc(success.user.uid).get().then((snapshot) => {
                 console.log(snapshot.data())
                 console.log("snapshot.data =>>", snapshot.data().isRestaurant);
-                if(snapshot.data().isRestaurant){
+                if (snapshot.data().isRestaurant) {
                     userLoginDetails.propsHistory.push("/order-requests");
                     resolve(success)
-                }else{
+                } else {
                     userLoginDetails.propsHistory.push("/");
                     resolve(success)
-                }             
+                }
             })
         }).catch((error) => {
             // Handle Errors here.
@@ -113,7 +114,7 @@ function logIn(userLoginDetails) {
 }
 
 function addItem(itemDetails) {
-    const { itemTitle, itemIngredients,itemSalePrice, itemPrice, itemImage, chooseItemType, } = itemDetails;
+    const { itemTitle, itemIngredients, itemSalePrice, itemPrice, itemImage, chooseItemType, } = itemDetails;
     return new Promise((resolve, reject) => {
         let user = firebase.auth().currentUser;
         var uid;
@@ -163,7 +164,7 @@ function addItem(itemDetails) {
     })
 }
 
-function orderNow(cartItemsList, totalPrice, totalActualPrice,resDetails, userDetails, history) {
+function orderNow(cartItemsList, totalPrice, totalActualPrice, resDetails, userDetails, history) {
     return new Promise((resolve, reject) => {
         let user = firebase.auth().currentUser;
         var uid;
@@ -174,7 +175,7 @@ function orderNow(cartItemsList, totalPrice, totalActualPrice,resDetails, userDe
         const myOrder = {
             itemsList: cartItemsList,
             totalPrice: totalPrice,
-            totalActualPrice : totalActualPrice,
+            totalActualPrice: totalActualPrice,
             status: "PENDING",
             ...resDetails,
         }
@@ -182,7 +183,7 @@ function orderNow(cartItemsList, totalPrice, totalActualPrice,resDetails, userDe
         const orderRequest = {
             itemsList: cartItemsList,
             totalPrice: totalPrice,
-            totalActualPrice : totalActualPrice,
+            totalActualPrice: totalActualPrice,
             status: "PENDING",
             ...userDetails,
         }

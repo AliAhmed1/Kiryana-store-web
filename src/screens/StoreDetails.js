@@ -6,6 +6,7 @@ import firebase from '../config/firebase';
 import { connect } from 'react-redux';
 import { orderNow } from '../config/firebase';
 import Swal from 'sweetalert2'
+// import InfiniteScroll from 'react-infinite-scroll-component';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.scss'
@@ -46,7 +47,6 @@ class StoreDetails extends Component {
         }
     }
 
-
     static getDerivedStateFromProps(props) {
         const { state } = props.location;
         const { user } = props
@@ -62,7 +62,8 @@ class StoreDetails extends Component {
         if (menuItemsList) {
             Object.keys(menuItemsList).map((val) => { });
             const result = menuItemsList.filter((val) => {
-                return val.itemIngredients.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1;
+                return val.itemIngredients.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1 ||
+                    val.itemTitle.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1;
             })
             // console.log(result)
             if (searchText.length > 0) {
@@ -84,6 +85,13 @@ class StoreDetails extends Component {
                     defaultSearchValue: searchText,
                 })
             }
+        }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            )
         }
     }
 
@@ -142,7 +150,7 @@ class StoreDetails extends Component {
                 cartItemsList: cartItemsList,
                 showCartList: true,
             })
-            
+
         }
         // console.log(totalActualPrice, "    ",totalPrice)
     }
@@ -220,7 +228,7 @@ class StoreDetails extends Component {
         const { menuItemsList } = this.state;
         if (menuItemsList) {
             let obj = [...menuItemsList]
-            obj.sort((a,b) => a.itemSalePrice > b.itemSalePrice ? 1 : -1)
+            obj.sort((a, b) => a.itemSalePrice - b.itemSalePrice)
             return Object.keys(obj).map((val) => {
                 return (
                     <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={obj[val].id}>
@@ -241,13 +249,20 @@ class StoreDetails extends Component {
                 )
             })
         }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            )
+        }
     }
 
     _renderSearchMenu() {
         const { searchRestaurants, menuItemsList } = this.state;
         if (searchRestaurants) {
             let obj = [...searchRestaurants]
-            obj.sort((a,b) => a.itemSalePrice > b.itemSalePrice ? 1 : -1)
+            obj.sort((a, b) => a.itemSalePrice - b.itemSalePrice)
             return Object.keys(obj).map((val) => {
                 return (
                     <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={obj[val].id}>
@@ -267,6 +282,13 @@ class StoreDetails extends Component {
                     </div>
                 )
             })
+        }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            )
         }
     }
 
@@ -287,6 +309,13 @@ class StoreDetails extends Component {
                     </li>
                 )
             })
+        }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            )
         }
     }
 
@@ -401,7 +430,7 @@ class StoreDetails extends Component {
                                         <div className="col-12 bg-white p-4">
                                             <h5>Overview {resDetails.userName}</h5>
                                             <p>Base prepared fresh daily. Extra items are available in choose extra
-                                            Choose you sauce: Go for on your Bread base for no extra cost.
+                                                Choose you sauce: Go for on your Bread base for no extra cost.
                                                 Choose fingers or Un cut on any size Bread</p>
                                         </div>
                                     </div>
@@ -409,6 +438,11 @@ class StoreDetails extends Component {
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-12">
+                                <div className="container bg-white py-3 my-3 text-center order-card">
+                                    <div className="col-12">
+                                        <button className="btn btn-warning btn-sm btn-block text-uppercase mr-2 mr-1 px-3" onClick={() => { window.open(resDetails.userMapLink, "_blank") }}><b>Store Location</b></button>
+                                    </div>
+                                </div>
                                 <div className="container bg-white py-3 order-card">
                                     <h6 className="border-bottom pb-2 mb-3"><FontAwesomeIcon icon="shopping-basket" className="mr-2" />Your Order</h6>
                                     {cartItemsList.length > 0 ? <div>

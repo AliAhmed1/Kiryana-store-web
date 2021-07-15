@@ -70,7 +70,7 @@ class MyOrders extends Component {
         const { myOrder } = this.props;
         // console.log(myOrder)
         if (myOrder) {
-            return Object.keys(myOrder).map((val,key) => {
+            return Object.keys(myOrder).map((val, key) => {
                 const userUid = myOrder[val].userUid;
                 const orderId = myOrder[val].id;
                 if (myOrder[val].status === "PENDING") {
@@ -85,7 +85,7 @@ class MyOrders extends Component {
                                 </div>
                             </div>
                             {
-                                Object.keys(myOrder[val].itemsList).map((val2,key) => {
+                                Object.keys(myOrder[val].itemsList).map((val2, key) => {
                                     // console.log(myOrder[val].itemsList[val2])
                                     // console.log(val2)
                                     return (
@@ -108,6 +108,7 @@ class MyOrders extends Component {
                             }
                             <div className="row mb-3 mb-md-0 mb-lg-0">
                                 <div className="col-lg-6 col-md-6 col-12 order-lg-first order-md-first order-last ">
+                                    <button className="text-decoration-none btn btn-warning text-uppercase btn-sm m-1 px-4" onClick={() => { window.open(myOrder[val].userMapLink, "_blank") }}><b>store Location</b></button>
                                 </div>
                                 <div className="col-lg-6 col-md-6 col-12 text-lg-right text-md-right">
                                     <p><b className="mr-4">Total Price:</b><span style={{ fontSize: '1.1rem' }}>RS.{myOrder[val].totalPrice}</span></p>
@@ -118,13 +119,20 @@ class MyOrders extends Component {
                 }
             })
         }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                <span className="sr-only">Loading...</span>
+            </div>
+            )
+          }
     }
 
     _renderInProgressMyOrder() {
         const { myOrder } = this.props;
         // console.log(myOrder)
         if (myOrder) {
-            return Object.keys(myOrder).map((val,key) => {
+            return Object.keys(myOrder).map((val, key) => {
                 const userUid = myOrder[val].userUid;
                 const orderId = myOrder[val].id;
                 if (myOrder[val].status === "IN PROGRESS") {
@@ -139,7 +147,7 @@ class MyOrders extends Component {
                                 </div>
                             </div>
                             {
-                                Object.keys(myOrder[val].itemsList).map((val2,key) => {
+                                Object.keys(myOrder[val].itemsList).map((val2, key) => {
                                     // console.log(myOrder[val].itemsList[val2])
                                     // console.log(val2)
                                     return (
@@ -160,6 +168,8 @@ class MyOrders extends Component {
                             }
                             <div className="row mb-3 mb-md-0 mb-lg-0">
                                 <div className="col-lg-6 col-md-6 col-12 order-lg-first order-md-first order-last ">
+                                    <button className="text-decoration-none btn btn-warning text-uppercase btn-sm m-1 px-4" onClick={() => { window.open(myOrder[val].userMapLink, "_blank") }}><b>store Location</b></button>
+
                                 </div>
                                 <div className="col-lg-6 col-md-6 col-12 text-lg-right text-md-right">
                                     <p><b className="mr-4">Total Price:</b><span style={{ fontSize: '1.1rem' }}>RS.{myOrder[val].totalPrice}</span></p>
@@ -170,13 +180,20 @@ class MyOrders extends Component {
                 }
             })
         }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                <span className="sr-only">Loading...</span>
+            </div>
+            )
+          }
     }
 
     _renderDeliveredMyOrder() {
         const { myOrder } = this.props;
         // console.log(myOrder)
         if (myOrder) {
-            return Object.keys(myOrder).map((val,key) => {
+            return Object.keys(myOrder).map((val, key) => {
                 if (myOrder[val].status === "DELIVERED") {
                     return (
                         <div className="container border-bottom pb-2 px-lg-0 px-md-0 mb-4" key={key}>
@@ -190,7 +207,7 @@ class MyOrders extends Component {
                                 </div>
                             </div>
                             {
-                                Object.keys(myOrder[val].itemsList).map((val2,key) => {
+                                Object.keys(myOrder[val].itemsList).map((val2, key) => {
                                     // console.log(myOrder[val].itemsList[val2])
                                     // console.log(val2)
                                     return (
@@ -222,6 +239,13 @@ class MyOrders extends Component {
                 }
             })
         }
+        else {
+            return (
+                <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+                <span className="sr-only">Loading...</span>
+            </div>
+            )
+          }
     }
 
     render() {
@@ -268,7 +292,7 @@ class MyOrders extends Component {
                                     {tab1Content &&
                                         < div className="row pending-order-section">
                                             <div className="col-12 bg-white p-4">
-                                                {this._renderPendingMyOrder()}              
+                                                {this._renderPendingMyOrder()}
                                             </div>
                                         </div>
                                     }

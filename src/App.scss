@@ -18,6 +18,19 @@
 @import "../src/assets/styles/mixins/blockqoute";
 
 
+.spinner{
+  position: fixed;
+  z-index: 999;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+}
+
 .proBanner {
   position: fixed;
   top: 0;
@@ -87,8 +100,8 @@
   font-family: 'Roboto', sans-serif !important;
 }
 
-.bg-warning{
-  background-color: #FC9C12 !important;
+.bg-warnin{
+  background-color: #FC9C12 !important ;
 }
 
 .text-warning{
@@ -132,7 +145,7 @@ a{
 
 a:hover{
   text-decoration: none;
-  color: #fff !important;
+  color: #FC9C12 !important;
   outline: none;
   transition: all 0.3s ease-in-out !important;
 }
@@ -191,14 +204,13 @@ a:hover{
 /* For Navbar.js */
 
 .navbar-nav {
-
 background: #fff;
 vertical-align: middle;
 border-radius: 10px;
 border: 1px solid black;
 display: flex;
 align-items: center;
-padding-left: 10px;
+padding-left: 10px !important;
 padding-right: 10px;
 padding-top: 5px;
 padding-bottom: 5px;
@@ -212,7 +224,6 @@ padding-bottom: 5px;
 .nav-item .active{
   font-size: 13px;
   font-weight: 700;
-  
   color: #FC9C12 !important;
 }
 
@@ -223,30 +234,31 @@ padding-bottom: 5px;
 }
 
 .btn-warning {
-  color: #fff;
-  background-color: #212832;
-  border-color: #FC9C12;
+  color: #fff !important;
+  background-color: #212832 !important;
+  border-color: #FC9C12 !important;
   transition: all 0.3s ease-in-out !important
 }
 
+
 .btn-warning:hover {
-  color: #FC9C12;
-  background-color: #fff;
-  border-color: #FC9C12;
+  color: #FC9C12 !important;
+  background-color: #fff !important;
+  border-color: #FC9C12 !important;
 }
 
 .btn-warning:focus, .btn-warning.focus {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active, .show > .btn-warning.dropdown-toggle {
-  color: #FC9C12;
-  background-color: #fff;
-  border-color: #FC9C12;
+  color: #FC9C12 !important;
+  background-color: #fff !important;
+  border-color: #FC9C12 !important;
 }
 
 .btn-warning:not(:disabled):not(.disabled):active:focus, .btn-warning:not(:disabled):not(.disabled).active:focus, .show > .btn-warning.dropdown-toggle:focus {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .home-cont3{
@@ -350,7 +362,7 @@ color: #212832;
   padding-bottom: 100px !important;
 }
 .stores-cont5{
-  background: url('./assets/images/variations-jar1.jpg') no-repeat center / cover;
+  background: url('./assets/images/variations.jpg') no-repeat center / cover;
 }
 .stores-cont5 h2{
 color: #212832;
@@ -379,24 +391,24 @@ color: #212832;
 }
 
 .input-group-text{
-  color: #999ba3;
-  background-color: #ffffff;  
+  color: #999ba3 !important;
+  background-color: #ffffff !important;  
 }
 
 .input-group .form-control{
   color: #999ba3 !important;
-  border-left: none;
+  border-left: none !important;
 }
 .form-control::placeholder{
   color: #999ba3 !important;
 }
 
 .form-control:focus {
-  color: #999ba3;
-  background-color: #fff;
+  color: #999ba3 !important;
+  background-color: #fff !important;
   /* border-color: ; */
-  outline: 0;
-  box-shadow: none;
+  outline: 0 !important;
+  box-shadow: none !important;
 }
 
 .listing-filter .filter-heading{

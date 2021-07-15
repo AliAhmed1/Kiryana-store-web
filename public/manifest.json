@@ -1,8 +1,8 @@
 {
   "name": "Kiryana Grocery Store",
   "short_name": "Kiryana",
-  "theme_color": "#7d1d96",
-  "background_color": "#7d1d96",
+  "theme_color": "#ffe3bd",
+  "background_color": "#ffe3bd",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

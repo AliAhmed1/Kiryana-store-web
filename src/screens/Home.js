@@ -26,7 +26,7 @@ class SimpleMap extends Component {
       lng: 30.33,
     },
     zoom: 11,
-    mapId : '509cf9f4ca660a97'
+    mapId: '509cf9f4ca660a97'
   };
 
 
@@ -60,7 +60,7 @@ class Home extends Component {
     this.handleSearchBar = this.handleSearchBar.bind(this);
   }
 
-  
+
   async componentDidMount() {
     this.props.store_list();
   }
@@ -138,14 +138,21 @@ class Home extends Component {
         )
       })
     }
+    else {
+      return (
+        <div style={{ marginLeft: "50%" }} className="spinner-border text-warning " role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      )
+    }
   }
 
   render() {
-  //   firebase.firestore().collection('users').get().then((snapshot) => {
-  //     console.log(snapshot.data())
-        
-  // })
-  
+    //   firebase.firestore().collection('users').get().then((snapshot) => {
+    //     console.log(snapshot.data())
+
+    // })
+
     return (
       <div>
         {/* Home Navbar Section */}
@@ -155,7 +162,7 @@ class Home extends Component {
             <Navbar2 history={this.props.history} />
 
             <div className="container home-cont1-text">
-              <h2 className="h1 text text-white text-center mb-4"><strong>Your Best Source Of Groceries<br/> Easy And Safe</strong></h2>
+              <h2 className="h1 text text-white text-center mb-4"><strong>Your Best Source Of Groceries<br /> Easy And Safe</strong></h2>
               <div className="container">
                 <div className="row justify-content-center">
                   <div className="col-lg-6 col-md-6 col-sm-12 mb-3">
@@ -178,7 +185,7 @@ class Home extends Component {
         </div>
 
         {/* Home Number section */}
-        <div className="container-fluid py-2 bg-warning">
+        <div className="container-fluid py-2 bg-warnin">
           <div className="row">
             <div className="col-lg-4 col-md-4 col-sm-12">
               <p className="my-3 text-lg-right text-md-right text-center text-white"><b className="mr-2 h5">4</b>Grocery Stores</p>
@@ -248,7 +255,7 @@ class Home extends Component {
 
 
               {this._renderStoreList()}
-               {/* <div className="container res-shadow res-border">
+              {/* <div className="container res-shadow res-border">
                   <div className="row p-3">
                     <div className="col-lg-4 col-md-4 col-sm-12 text-center border p-2">
                       <img style={{ width: "70%" }} alt="Natural Healthy Food" src={require("../assets/images/listing-logo03.png")} />

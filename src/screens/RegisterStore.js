@@ -26,6 +26,7 @@ export default class RegisterStore extends Component {
             showError: false,
             userLoginEmail: "",
             userLoginPassword: "",
+            userMapLink: "",
         }
         this.handleUserName = this.handleUserName.bind(this);
         this.handleUserEmail = this.handleUserEmail.bind(this);
@@ -38,6 +39,7 @@ export default class RegisterStore extends Component {
         this.handleUserProfileImage = this.handleUserProfileImage.bind(this);
         this.handleUserTNC = this.handleUserTNC.bind(this);
         this.handleUserGender = this.handleUserGender.bind(this);
+        this.handleMapLink = this.handleMapLink.bind(this)
     }
 
     handleUserName(e) {
@@ -206,8 +208,26 @@ export default class RegisterStore extends Component {
         }
     }
 
+    handleMapLink(e) {
+        const userMapLink = e
+        // const userMapFormate = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+        if (userMapLink.length > 10) {
+            this.setState({
+                showError: false,
+                registerFormError: "",
+                userMapLink: userMapLink,
+            });
+        } else {
+            this.setState({
+                showError: true,
+                registerFormError: "Please enter a valid URL name.",
+                userMapLink: "",
+            });
+        }
+    }
+
     async handleCreateAccountBtn() {
-        const { userName, userEmail, userPassword, userConfirmPassword, userCity, userCountry, userGender, userAge, userProfileImage, userTNC } = this.state;
+        const { userName, userEmail, userPassword, userConfirmPassword, userCity, userCountry, userGender, userAge, userProfileImage, userMapLink, userTNC } = this.state;
 
         // const whiteSpaces = /^(?!\s*$)[-a-zA-Z0-9_:,.' ']{1,100}$/;
         const userNameFormate = /^([A-Za-z.\s_-]).{5,}$/;
@@ -215,6 +235,8 @@ export default class RegisterStore extends Component {
         const userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
         const userCountryFormate = /^([A-Za-z.\s_-]).{5,}$/;
         const userCityFormate = /^([A-Za-z.\s_-]).{5,}$/;
+        // const userMapFormate = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+
 
         if (!userName.match(userNameFormate)) {
             this.setState({
@@ -264,7 +286,15 @@ export default class RegisterStore extends Component {
                 userProfileImageLable: "Choose image...",
                 userProfileImage: "",
             });
-        } else if (!userTNC) {
+        } else if (userMapLink.length < 10) {
+            this.setState({
+                showError: true,
+                registerFormError: "Please enter a valid URL.",
+                userAge: "",
+            });
+        }
+
+        else if (!userTNC) {
             this.setState({
                 userTNC: false,
                 showError: true,
@@ -283,19 +313,20 @@ export default class RegisterStore extends Component {
                 userProfileImage: userProfileImage,
                 isRestaurant: true,
                 propsHistory: this.props.history,
-                // typeOfFood: ['Juice', 'Beef', 'Cheese']
+                userMapLink : userMapLink,
+                typeOfFood: ['Juice', 'Beef', 'Cheese']
             }
             try {
                 const signUpReturn = await signUp(userDetails)
                 // console.log(signUpReturn)
             } catch (error) {
-                console.log("Error in Register Restaurant => ",error)
+                console.log("Error in Register Restaurant => ", error)
             }
         }
     }
 
     render() {
-        const { showError, registerFormError, userProfileImageLable, userTNC, userGender } = this.state;
+        const { showError, registerFormError, userProfileImageLable, userTNC, userGender, userMapLink } = this.state;
         return (
             <div>
                 <div className="container-fluid register-cont1">
@@ -360,6 +391,10 @@ export default class RegisterStore extends Component {
                                         <label className="custom-file-label" htmlFor="userProfileImage">{userProfileImageLable}</label>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="form-group col-md-12 mx-0 px-0">
+                                <label htmlFor="userEmail">Map Link</label>
+                                <input type="text" className="form-control" id="userMapLink" placeholder="Map Link" onKeyUp={(e) => this.handleMapLink(e.target.value)} />
                             </div>
                             <div className="form-group">
                                 <div className="custom-control custom-checkbox">
