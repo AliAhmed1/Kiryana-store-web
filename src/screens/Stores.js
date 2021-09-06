@@ -4,7 +4,6 @@ import Navbar2 from '../components/Navbar2';
 import Footer from '../components/Footer';
 import { connect } from 'react-redux';
 import { store_list } from '../store/action';
-
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.scss'
 
