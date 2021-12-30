@@ -107,7 +107,7 @@ class Navbar2 extends Component {
             return (
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <span className="nav-link active text mr-2"><Link to="/stores">Items</Link></span>
+                        <span className="nav-link active text mr-2"><Link to="/stores">Stores</Link></span>
                     </li>
                     <li className="nav-item">
                         <span className="nav-link active text mr-2"><Link to="/my-orders">My Orders</Link></span>
