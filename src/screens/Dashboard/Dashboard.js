@@ -24,7 +24,8 @@ class Dashboard extends React.Component {
       totalOrder: 0,
       items: 0,
       profit: 25,
-      actualPrice: 50
+      actualPrice: 50,
+      pricePrediction: 0,
     }
   }
   static getDerivedStateFromProps(props) {
@@ -38,11 +39,49 @@ class Dashboard extends React.Component {
   async componentDidMount() {
     this.props.order_request();
     this.props.my_items();
+
+
+    const d = new Date();
+    let year = d.getFullYear();
+    let month = d.getMonth() + 1;
+    let day = d.getDate();
+
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'postman-token': 'fb81793e-b6e2-9030-f3bc-80ad1424ba12',
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'access-control-allow-origin': '*',
+        'access-control-allow-credentials': true,
+        'server' : 'PythonAnywhere',
+        'access-control-allow-methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        'accept': '*/*',
+        'Access-Control-Request-Method': 'GET',
+        
+      },
+      mode : 'cors',
+      // body: JSON.stringify({
+      //   "l4": 9,
+      //   "l2": { day },
+      //   "l3": { year },
+      //   "l1": { month }
+      // })
+    };
+
+    await fetch('http://usman4485.pythonanywhere.com/grocery/predict/300/3/2020/1', requestOptions)
+      .then(response => response.json())
+      .then(data =>
+        this.setState({ pricePrediction: data.result })
+        // console.log(data)
+      )
+      .catch(error => console.log('error', error));
   }
 
-  chartHistoryData = (rev , act , pro) => {
-    
-    let data = [rev,act,pro]
+
+  chartHistoryData = (rev, act, pro) => {
+
+    let data = [rev, act, pro]
     let chart = {
       labels: ["Revenue", "ActualTotalPrice", "Profit"],
       datasets: [{
@@ -210,6 +249,9 @@ class Dashboard extends React.Component {
             </div>
           </div>
         </div>
+        <div className="alert alert-primary" role="alert">
+          Total Sales can be reached upto {this.state.pricePrediction} according to this time period
+        </div>
         <div className="container-fluid mt-3">
           <div className="row">
 
@@ -283,10 +325,10 @@ class Dashboard extends React.Component {
                 <div className="card-body">
                   <h4 className="card-title">Transaction History</h4>
                   <div className="aligner-wrapper my-2">
-                    <Doughnut data={this.chartHistoryData(this.state.revenue,this.state.actualPrice, this.state.profit)} options={this.chartHistoryOptions} />
-                  
+                    <Doughnut data={this.chartHistoryData(this.state.revenue, this.state.actualPrice, this.state.profit)} options={this.chartHistoryOptions} />
+
                   </div>
-                 
+
                 </div>
               </div>
             </div>
@@ -296,7 +338,7 @@ class Dashboard extends React.Component {
               </div>
             </div>
           </div>
-         
+
         </div>
         <Footer />
       </div>
